@@ -17,13 +17,16 @@
 
         function fetchImages() {
             const container = document.getElementById('cameraImages');
-            container.innerHTML = ''; // Clear existing images
 
             imageUrls.forEach((url, index) => {
-                const img = document.createElement('img');
+                let img = container.querySelector(`img[data-index="${index}"]`);
+                if (!img) {
+                    img = document.createElement('img');
+                    img.dataset.index = index;
+                    img.alt = `Camera Image ${index + 1}`;
+                    container.appendChild(img);
+                }
                 img.src = url + '&' + new Date().getTime(); // Adding timestamp to avoid caching
-                img.alt = `Camera Image ${index + 1}`;
-                container.appendChild(img);
             });
         }
 
