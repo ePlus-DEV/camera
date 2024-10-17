@@ -1,17 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='main.js'></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Fetcher</title>
 </head>
 
 <body>
+    <div id="cameraImages"></div>
+    <script>
+        const imageUrls = [
+            "get.php?url=http://giaothong.hochiminhcity.gov.vn:8007/Render/CameraHandler.ashx?id=649da72ca6068200171a6dbb",
+            "get.php?url=http://giaothong.hochiminhcity.gov.vn:8007/Render/CameraHandler.ashx?id=649da77ea6068200171a6dd4"
+        ];
 
+        function fetchImages() {
+            const container = document.getElementById('cameraImages');
+            container.innerHTML = ''; // Clear existing images
+
+            imageUrls.forEach((url, index) => {
+                const img = document.createElement('img');
+                img.src = url + '&' + new Date().getTime(); // Adding timestamp to avoid caching
+                img.alt = `Camera Image ${index + 1}`;
+                container.appendChild(img);
+            });
+        }
+
+        // Call fetchImages every 3 seconds (3000 milliseconds)
+        setInterval(fetchImages, 3000);
+
+        // Initial call to display the images immediately on page load
+        fetchImages();
+    </script>
 </body>
 
 </html>
