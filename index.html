@@ -1,10 +1,13 @@
 <!DOCTYPE html>
+<!-- 
+    © 2024 ePlus.DEV. All rights reserved.
+-->
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Fetcher</title>
+    <title>Xem camera giao thông TP.HCM</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         .rendering-overlay::before {
@@ -17,15 +20,55 @@
             background-color: rgba(0, 0, 0, 0.5);
             z-index: 1;
         }
+
+        .skeleton {
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            width: 100%;
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skeleton::before {
+            content: '';
+            display: block;
+            position: absolute;
+            top: 0;
+            left: -150px;
+            height: 100%;
+            width: 150px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% {
+                left: -150px;
+            }
+
+            50% {
+                left: 100%;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+
+        .disabled {
+            background-color: #cbd5e0;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 
 <body class="bg-gray-100 overflow-auto">
     <div id="cameraImages" class="p-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3"></div>
     <div class="flex justify-center mt-4">
-        <button id="prevPage" class="bg-blue-500 text-white px-4 py-2 rounded mr-2">Previous</button>
+        <button id="prevPage" class="bg-blue-500 text-white px-4 py-2 rounded mr-2">Trước</button>
         <span id="pageInfo" class="text-gray-700 px-4 py-2"></span>
-        <button id="nextPage" class="bg-blue-500 text-white px-4 py-2 rounded">Next</button>
+        <button id="nextPage" class="bg-blue-500 text-white px-4 py-2 rounded">Sau</button>
     </div>
     <div id="pagination" class="flex justify-center mt-4"></div>
     <script>
@@ -66,13 +109,19 @@
                         const imgContainer = document.createElement('div');
                         imgContainer.className = "relative rendering-overlay"; // Add the overlay class
 
+                        const skeleton = document.createElement('div');
+                        skeleton.className = "skeleton";
+                        imgContainer.appendChild(skeleton);
+
                         const img = document.createElement('img');
                         img.dataset.index = i;
                         img.alt = `Camera Image ${i + 1}`;
-                        img.className = "w-full h-auto rounded shadow";
+                        img.className = "w-full h-auto rounded shadow hidden";
                         img.src = `get.php?url=http://giaothong.hochiminhcity.gov.vn:8007/Render/CameraHandler.ashx?id=${camera.CamId}&${new Date().getTime()}`; // Adding timestamp to avoid caching
                         img.onload = () => {
                             imgContainer.classList.remove('rendering-overlay'); // Remove the overlay class once the image is loaded
+                            skeleton.remove(); // Remove the skeleton loader
+                            img.classList.remove('hidden'); // Show the image
                         };
                         imgContainer.appendChild(img);
 
@@ -85,8 +134,9 @@
                     }
 
                     // Update page info
-                    document.getElementById('pageInfo').textContent = `Page ${currentPage} of ${totalPages}`;
+                    document.getElementById('pageInfo').textContent = `Trang ${currentPage} / ${totalPages}`;
                     renderPagination();
+                    updateButtonStates();
                 }
 
                 function renderPagination() {
@@ -139,6 +189,27 @@
                         const camera = cameras[img.dataset.index];
                         img.src = `image.php?url=http://giaothong.hochiminhcity.gov.vn:8007/Render/CameraHandler.ashx&id=${camera.CamId}&${new Date().getTime()}`; // Adding timestamp to avoid caching
                     });
+                }
+
+                function updateButtonStates() {
+                    const prevButton = document.getElementById('prevPage');
+                    const nextButton = document.getElementById('nextPage');
+
+                    if (currentPage === 1) {
+                        prevButton.classList.add('disabled');
+                        prevButton.disabled = true;
+                    } else {
+                        prevButton.classList.remove('disabled');
+                        prevButton.disabled = false;
+                    }
+
+                    if (currentPage === totalPages) {
+                        nextButton.classList.add('disabled');
+                        nextButton.disabled = true;
+                    } else {
+                        nextButton.classList.remove('disabled');
+                        nextButton.disabled = false;
+                    }
                 }
 
                 // Initial call to display the first page of images immediately on page load
