@@ -5,14 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Fetcher</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
-<body>
-    <div id="cameraImages"></div>
+<body class="bg-gray-100">
+    <div id="cameraImages" class="p-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3"></div>
     <script>
         const imageUrls = [
             "get.php?url=http://giaothong.hochiminhcity.gov.vn:8007/Render/CameraHandler.ashx?id=649da72ca6068200171a6dbb",
-            "get.php?url=http://giaothong.hochiminhcity.gov.vn:8007/Render/CameraHandler.ashx?id=649da77ea6068200171a6dd4"
+            "get.php?url=http://giaothong.hochiminhcity.gov.vn:8007/Render/CameraHandler.ashx?id=649da77ea6068200171a6dd4",
+            "get.php?url=http://giaothong.hochiminhcity.gov.vn:8007/Render/CameraHandler.ashx?id=5990ffdbbec3b90016d2ad2d",
         ];
 
         function fetchImages() {
@@ -24,6 +26,7 @@
                     img = document.createElement('img');
                     img.dataset.index = index;
                     img.alt = `Camera Image ${index + 1}`;
+                    img.className = "w-full h-auto rounded shadow";
                     container.appendChild(img);
                 }
                 img.src = url + '&' + new Date().getTime(); // Adding timestamp to avoid caching
@@ -31,7 +34,7 @@
         }
 
         // Call fetchImages every 3 seconds (3000 milliseconds)
-        setInterval(fetchImages, 3000);
+        setInterval(fetchImages, 1000);
 
         // Initial call to display the images immediately on page load
         fetchImages();
