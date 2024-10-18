@@ -10,7 +10,10 @@
 
 <body class="bg-gray-100 overflow-auto">
     <div id="cameraImages" class="p-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3"></div>
-    <div id="sentinel" class="h-1"></div> <!-- Sentinel element -->
+    <div id="pagination" class="flex justify-center mt-4">
+        <button id="prevPage" class="px-4 py-2 bg-blue-500 text-white rounded mr-2">Previous</button>
+        <button id="nextPage" class="px-4 py-2 bg-blue-500 text-white rounded">Next</button>
+    </div>
     <script>
         fetch('data-camera.json')
             .then(response => response.json())
@@ -21,33 +24,34 @@
                     throw new Error('cameras is undefined');
                 }
 
-                let currentIndex = 0;
-                const batchSize = 10; // Number of images to load per batch
+                let currentPage = 1;
+                const itemsPerPage = 10; // Number of images to load per page
 
-                function fetchImages() {
+                function renderImages(page) {
                     const container = document.getElementById('cameraImages');
+                    container.innerHTML = ''; // Clear previous images
 
-                    for (let i = 0; i < batchSize && currentIndex < cameras.length; i++, currentIndex++) {
-                        const camera = cameras[currentIndex];
-                        let img = container.querySelector(`img[data-index="${currentIndex}"]`);
-                        if (!img) {
-                            const imgContainer = document.createElement('div');
-                            imgContainer.className = "relative";
+                    const startIndex = (page - 1) * itemsPerPage;
+                    const endIndex = Math.min(startIndex + itemsPerPage, cameras.length);
 
-                            img = document.createElement('img');
-                            img.dataset.index = currentIndex;
-                            img.alt = `Camera Image ${currentIndex + 1}`;
-                            img.className = "w-full h-auto rounded shadow";
-                            imgContainer.appendChild(img);
+                    for (let i = startIndex; i < endIndex; i++) {
+                        const camera = cameras[i];
+                        const imgContainer = document.createElement('div');
+                        imgContainer.className = "relative";
 
-                            const nameDiv = document.createElement('div');
-                            nameDiv.className = "absolute bottom-0 left-0 bg-black bg-opacity-50 text-white text-xs p-1 opacity-0 hover:opacity-100 transition-opacity duration-300";
-                            nameDiv.textContent = camera.CamName;
-                            imgContainer.appendChild(nameDiv);
-
-                            container.appendChild(imgContainer);
-                        }
+                        const img = document.createElement('img');
+                        img.dataset.index = i;
+                        img.alt = `Camera Image ${i + 1}`;
+                        img.className = "w-full h-auto rounded shadow";
                         img.src = `get.php?url=http://giaothong.hochiminhcity.gov.vn:8007/Render/CameraHandler.ashx?id=${camera.CamId}&${new Date().getTime()}`; // Adding timestamp to avoid caching
+                        imgContainer.appendChild(img);
+
+                        const nameDiv = document.createElement('div');
+                        nameDiv.className = "absolute bottom-0 left-0 bg-black bg-opacity-50 text-white text-xs p-1 opacity-0 hover:opacity-100 transition-opacity duration-300";
+                        nameDiv.textContent = camera.CamName;
+                        imgContainer.appendChild(nameDiv);
+
+                        container.appendChild(imgContainer);
                     }
                 }
 
@@ -59,17 +63,23 @@
                     });
                 }
 
-                // Initial call to display the first batch of images immediately on page load
-                fetchImages();
+                // Initial call to display the first page of images immediately on page load
+                renderImages(currentPage);
 
-                // Intersection Observer to load more images when the sentinel is in view
-                const observer = new IntersectionObserver((entries) => {
-                    if (entries[0].isIntersecting) {
-                        fetchImages();
+                // Pagination buttons
+                document.getElementById('prevPage').addEventListener('click', () => {
+                    if (currentPage > 1) {
+                        currentPage--;
+                        renderImages(currentPage);
                     }
                 });
 
-                observer.observe(document.getElementById('sentinel'));
+                document.getElementById('nextPage').addEventListener('click', () => {
+                    if (currentPage * itemsPerPage < cameras.length) {
+                        currentPage++;
+                        renderImages(currentPage);
+                    }
+                });
 
                 // Refresh images every minute
                 setInterval(refreshImages, 3000); // 60000 ms = 1 minute
