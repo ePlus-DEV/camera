@@ -1,6 +1,6 @@
 # Xem camera giao thông TP.HCM
 
-![image](https://github.com/user-attachments/assets/1b91301c-27db-46a5-960f-94c4748746e8)
+![image](https://github.com/user-attachments/assets/1a5e9185-c34d-40d7-8fcb-7374d21cc571)
 
 ## Giới thiệu
 
