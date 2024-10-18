@@ -38,6 +38,7 @@
 
                 function renderImages(page) {
                     const container = document.getElementById('cameraImages');
+                    container.innerHTML = ''; // Clear the container before rendering new images
 
                     const startIndex = (page - 1) * itemsPerPage;
                     const endIndex = Math.min(startIndex + itemsPerPage, cameras.length);
