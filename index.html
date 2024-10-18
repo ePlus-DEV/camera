@@ -71,7 +71,7 @@
                     const images = document.querySelectorAll('#cameraImages img');
                     images.forEach(img => {
                         const camera = cameras[img.dataset.index];
-                        img.src = `get.php?url=http://giaothong.hochiminhcity.gov.vn:8007/Render/CameraHandler.ashx?id=${camera.CamId}&${new Date().getTime()}`; // Adding timestamp to avoid caching
+                        img.src = `image.php?url=http://giaothong.hochiminhcity.gov.vn:8007/Render/CameraHandler.ashx&id=${camera.CamId}&${new Date().getTime()}`; // Adding timestamp to avoid caching
                     });
                 }
 
