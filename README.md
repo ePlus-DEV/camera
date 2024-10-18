@@ -1,5 +1,8 @@
 # Xem camera giao thông TP.HCM
 
+![image](https://github.com/user-attachments/assets/1b91301c-27db-46a5-960f-94c4748746e8)
+
+
 ## Giới thiệu
 
 Dự án này nhằm mục đích theo dõi và phân tích dữ liệu từ các camera giao thông tại TP.HCM. Thông qua việc sử dụng các công nghệ hiện đại, chúng tôi có thể cung cấp thông tin thời gian thực về tình hình giao thông, giúp cải thiện việc quản lý và điều tiết giao thông trong thành phố.
