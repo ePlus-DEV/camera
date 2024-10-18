@@ -15,10 +15,10 @@
     fetch('data-camera.json')
         .then(response => response.json())
         .then(data => {
-            const imageIds = data;
+            const cameras = data;
 
-            if (!imageIds) {
-                throw new Error('imageIds is undefined');
+            if (!cameras) {
+                throw new Error('cameras is undefined');
             }
 
             let currentIndex = 0;
@@ -27,8 +27,8 @@
             function fetchImages() {
                 const container = document.getElementById('cameraImages');
 
-                for (let i = 0; i < batchSize && currentIndex < imageIds.length; i++, currentIndex++) {
-                    const id = imageIds[currentIndex];
+                for (let i = 0; i < batchSize && currentIndex < cameras.length; i++, currentIndex++) {
+                    const camera = cameras[currentIndex];
                     let img = container.querySelector(`img[data-index="${currentIndex}"]`);
                     if (!img) {
                         img = document.createElement('img');
@@ -37,15 +37,15 @@
                         img.className = "w-full h-auto rounded shadow";
                         container.appendChild(img);
                     }
-                    img.src = `get.php?url=http://giaothong.hochiminhcity.gov.vn:8007/Render/CameraHandler.ashx?id=${id}&${new Date().getTime()}`; // Adding timestamp to avoid caching
+                    img.src = `get.php?url=http://giaothong.hochiminhcity.gov.vn:8007/Render/CameraHandler.ashx?id=${camera.CamId}&${new Date().getTime()}`; // Adding timestamp to avoid caching
                 }
             }
 
             function refreshImages() {
                 const images = document.querySelectorAll('#cameraImages img');
                 images.forEach(img => {
-                    const id = imageIds[img.dataset.index];
-                    img.src = `get.php?url=http://giaothong.hochiminhcity.gov.vn:8007/Render/CameraHandler.ashx?id=${id}&${new Date().getTime()}`; // Adding timestamp to avoid caching
+                    const camera = cameras[img.dataset.index];
+                    img.src = `get.php?url=http://giaothong.hochiminhcity.gov.vn:8007/Render/CameraHandler.ashx?id=${camera.CamId}&${new Date().getTime()}`; // Adding timestamp to avoid caching
                 });
             }
 
@@ -64,7 +64,7 @@
             // Refresh images every minute
             setInterval(refreshImages, 3000); // 60000 ms = 1 minute
         })
-        .catch(error => console.error('Error fetching image IDs:', error));
+        .catch(error => console.error('Error fetching camera data:', error));
 </script>
 </body>
 
