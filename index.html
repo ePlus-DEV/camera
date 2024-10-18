@@ -8,54 +8,64 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
-<body class="bg-gray-100">
-    <div id="cameraImages" class="p-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3"></div>
-    <div id="sentinel" class="h-1"></div> <!-- Sentinel element -->
-    <script>
-        fetch('data-camera.json')
-            .then(response => response.json())
-            .then(data => {
-                console.log('Fetched data:', data); // Log the fetched data
-                const imageIds = data;
+<body class="bg-gray-100 overflow-auto"></body>
+<div id="cameraImages" class="p-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3"></div>
+<div id="sentinel" class="h-1"></div> <!-- Sentinel element -->
+<script>
+    fetch('data-camera.json')
+        .then(response => response.json())
+        .then(data => {
+            const imageIds = data;
 
-                if (!imageIds) {
-                    throw new Error('imageIds is undefined');
-                }
+            if (!imageIds) {
+                throw new Error('imageIds is undefined');
+            }
 
-                let currentIndex = 0;
-                const batchSize = 10; // Number of images to load per batch
+            let currentIndex = 0;
+            const batchSize = 10; // Number of images to load per batch
 
-                function fetchImages() {
-                    const container = document.getElementById('cameraImages');
+            function fetchImages() {
+                const container = document.getElementById('cameraImages');
 
-                    for (let i = 0; i < batchSize && currentIndex < imageIds.length; i++, currentIndex++) {
-                        const id = imageIds[currentIndex];
-                        let img = container.querySelector(`img[data-index="${currentIndex}"]`);
-                        if (!img) {
-                            img = document.createElement('img');
-                            img.dataset.index = currentIndex;
-                            img.alt = `Camera Image ${currentIndex + 1}`;
-                            img.className = "w-full h-auto rounded shadow";
-                            container.appendChild(img);
-                        }
-                        img.src = `get.php?url=http://giaothong.hochiminhcity.gov.vn:8007/Render/CameraHandler.ashx?id=${id}&${new Date().getTime()}`; // Adding timestamp to avoid caching
+                for (let i = 0; i < batchSize && currentIndex < imageIds.length; i++, currentIndex++) {
+                    const id = imageIds[currentIndex];
+                    let img = container.querySelector(`img[data-index="${currentIndex}"]`);
+                    if (!img) {
+                        img = document.createElement('img');
+                        img.dataset.index = currentIndex;
+                        img.alt = `Camera Image ${currentIndex + 1}`;
+                        img.className = "w-full h-auto rounded shadow";
+                        container.appendChild(img);
                     }
+                    img.src = `get.php?url=http://giaothong.hochiminhcity.gov.vn:8007/Render/CameraHandler.ashx?id=${id}&${new Date().getTime()}`; // Adding timestamp to avoid caching
                 }
+            }
 
-                // Initial call to display the first batch of images immediately on page load
-                fetchImages();
-
-                // Intersection Observer to load more images when the sentinel is in view
-                const observer = new IntersectionObserver((entries) => {
-                    if (entries[0].isIntersecting) {
-                        fetchImages();
-                    }
+            function refreshImages() {
+                const images = document.querySelectorAll('#cameraImages img');
+                images.forEach(img => {
+                    const id = imageIds[img.dataset.index];
+                    img.src = `get.php?url=http://giaothong.hochiminhcity.gov.vn:8007/Render/CameraHandler.ashx?id=${id}&${new Date().getTime()}`; // Adding timestamp to avoid caching
                 });
+            }
 
-                observer.observe(document.getElementById('sentinel'));
-            })
-            .catch(error => console.error('Error fetching image IDs:', error));
-    </script>
+            // Initial call to display the first batch of images immediately on page load
+            fetchImages();
+
+            // Intersection Observer to load more images when the sentinel is in view
+            const observer = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    fetchImages();
+                }
+            });
+
+            observer.observe(document.getElementById('sentinel'));
+
+            // Refresh images every minute
+            setInterval(refreshImages, 3000); // 60000 ms = 1 minute
+        })
+        .catch(error => console.error('Error fetching image IDs:', error));
+</script>
 </body>
 
 </html>
