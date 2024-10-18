@@ -21,7 +21,7 @@ foreach ($cameras as $key => $value) {
 
     $id[] = [
         'CamId' => $value['Properties'][0]['Value'],
-        'name' => $value['Properties'][1]['Value'],
+        'CamName' => $value['Properties'][1]['Value'],
         'Disctrict' => ($value['Properties'][4]['Value'] === 'UP' ? 'N/A' : $value['Properties'][4]['Value']),
         'SnapshotUrl' => $value['Properties'][2]['Value'],
         'ManagementUnit' => $ManagementUnit,
