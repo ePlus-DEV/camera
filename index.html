@@ -6,14 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Image Fetcher</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .rendering-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Adjust the color and opacity as needed */
+            z-index: 1;
+        }
+    </style>
 </head>
 
 <body class="bg-gray-100 overflow-auto">
     <div id="cameraImages" class="p-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3"></div>
-    <div id="pagination" class="flex justify-center mt-4">
-        <button id="prevPage" class="px-4 py-2 bg-blue-500 text-white rounded mr-2">Previous</button>
-        <button id="nextPage" class="px-4 py-2 bg-blue-500 text-white rounded">Next</button>
-    </div>
     <script>
         fetch('data-camera.json')
             .then(response => response.json())
@@ -29,7 +38,6 @@
 
                 function renderImages(page) {
                     const container = document.getElementById('cameraImages');
-                    container.innerHTML = ''; // Clear previous images
 
                     const startIndex = (page - 1) * itemsPerPage;
                     const endIndex = Math.min(startIndex + itemsPerPage, cameras.length);
@@ -37,13 +45,16 @@
                     for (let i = startIndex; i < endIndex; i++) {
                         const camera = cameras[i];
                         const imgContainer = document.createElement('div');
-                        imgContainer.className = "relative";
+                        imgContainer.className = "relative rendering-overlay"; // Add the overlay class
 
                         const img = document.createElement('img');
                         img.dataset.index = i;
                         img.alt = `Camera Image ${i + 1}`;
                         img.className = "w-full h-auto rounded shadow";
                         img.src = `get.php?url=http://giaothong.hochiminhcity.gov.vn:8007/Render/CameraHandler.ashx?id=${camera.CamId}&${new Date().getTime()}`; // Adding timestamp to avoid caching
+                        img.onload = () => {
+                            imgContainer.classList.remove('rendering-overlay'); // Remove the overlay class once the image is loaded
+                        };
                         imgContainer.appendChild(img);
 
                         const nameDiv = document.createElement('div');
@@ -66,18 +77,13 @@
                 // Initial call to display the first page of images immediately on page load
                 renderImages(currentPage);
 
-                // Pagination buttons
-                document.getElementById('prevPage').addEventListener('click', () => {
-                    if (currentPage > 1) {
-                        currentPage--;
-                        renderImages(currentPage);
-                    }
-                });
-
-                document.getElementById('nextPage').addEventListener('click', () => {
-                    if (currentPage * itemsPerPage < cameras.length) {
-                        currentPage++;
-                        renderImages(currentPage);
+                // Scroll event to load more images
+                window.addEventListener('scroll', () => {
+                    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) { // Added a buffer of 100px
+                        if (currentPage * itemsPerPage < cameras.length) {
+                            currentPage++;
+                            renderImages(currentPage);
+                        }
                     }
                 });
 
