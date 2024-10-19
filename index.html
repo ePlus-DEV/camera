@@ -65,19 +65,35 @@
             position: absolute;
             top: 10px;
             right: 10px;
-            width: 20px;
-            /* Reduced width */
-            height: 20px;
-            /* Reduced height */
-            border-radius: 50%;
-            background: conic-gradient(#4caf50 0%, #4caf50 var(--progress), #ccc var(--progress), #ccc 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 8px;
-            /* Reduced font size */
+            width: 40px;
+            height: 40px;
             z-index: 2;
+        }
+
+        .countdown svg {
+            transform: rotate(-90deg);
+        }
+
+        .countdown circle {
+            fill: none;
+            stroke-width: 4;
+        }
+
+        .countdown .bg {
+            stroke: #ccc;
+        }
+
+        .countdown .progress {
+            stroke: #4caf50;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 1s linear;
+        }
+
+        .countdown text {
+            fill: white;
+            font-size: 10px;
+            text-anchor: middle;
+            dominant-baseline: middle;
         }
     </style>
 </head>
@@ -163,6 +179,13 @@
 
                         const countdownDiv = document.createElement('div');
                         countdownDiv.className = "countdown";
+                        countdownDiv.innerHTML = `
+                            <svg width="40" height="40">
+                                <circle class="bg" cx="20" cy="20" r="18"></circle>
+                                <circle class="progress" cx="20" cy="20" r="18" stroke-dasharray="113" stroke-dashoffset="113"></circle>
+                                <text x="20" y="20">3s</text>
+                            </svg>
+                        `;
                         imgContainer.appendChild(countdownDiv);
 
                         container.appendChild(imgContainer);
@@ -179,14 +202,17 @@
 
                 function startCountdown(element, seconds) {
                     let remainingTime = seconds;
-                    element.style.setProperty('--progress', '0%');
-                    element.textContent = `${remainingTime}s`;
+                    const progressCircle = element.querySelector('.progress');
+                    const textElement = element.querySelector('text');
+                    const circumference = 2 * Math.PI * 18;
+                    progressCircle.style.strokeDasharray = `${circumference}`;
+                    progressCircle.style.strokeDashoffset = `${circumference}`;
 
                     const interval = setInterval(() => {
                         remainingTime--;
-                        const progress = ((seconds - remainingTime) / seconds) * 100;
-                        element.style.setProperty('--progress', `${progress}%`);
-                        element.textContent = `${remainingTime}s`;
+                        const progress = ((seconds - remainingTime) / seconds) * circumference;
+                        progressCircle.style.strokeDashoffset = `${circumference - progress}`;
+                        textElement.textContent = `${remainingTime}s`;
 
                         if (remainingTime <= 0) {
                             clearInterval(interval);
