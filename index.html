@@ -83,6 +83,18 @@
 </head>
 
 <body class="bg-gray-100 overflow-auto">
+    <div class="flex justify-center mt-4">
+        <label for="itemsPerPage" class="mr-2">Số lượng camera hiển thị:</label>
+        <select id="itemsPerPage" class="bg-white border border-gray-300 rounded px-2 py-1">
+            <option value="3">3</option>
+            <option value="6">6</option>
+            <option value="9" selected>9</option>
+            <option value="12">12</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+        </select>
+    </div>
     <div id="cameraImages" class="p-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3"></div>
     <div class="flex justify-center mt-4">
         <button id="prevPage" class="bg-blue-500 text-white px-4 py-2 rounded mr-2">Trước</button>
@@ -100,8 +112,6 @@
                     throw new Error('cameras is undefined');
                 }
 
-                const itemsPerPage = 9; // Number of images to load per page
-                const totalPages = Math.ceil(cameras.length / itemsPerPage);
                 const refreshInterval = 3000; // 3000 ms = 3 seconds
 
                 function getPageFromUrl() {
@@ -116,6 +126,7 @@
                 }
 
                 let currentPage = getPageFromUrl();
+                let itemsPerPage = parseInt(document.getElementById('itemsPerPage').value);
 
                 function renderImages(page) {
                     const container = document.getElementById('cameraImages');
@@ -160,9 +171,10 @@
                     }
 
                     // Update page info
+                    const totalPages = Math.ceil(cameras.length / itemsPerPage);
                     document.getElementById('pageInfo').textContent = `Trang ${currentPage} / ${totalPages}`;
-                    renderPagination();
-                    updateButtonStates();
+                    renderPagination(totalPages);
+                    updateButtonStates(totalPages);
                 }
 
                 function startCountdown(element, seconds) {
@@ -182,7 +194,7 @@
                     }, 1000);
                 }
 
-                function renderPagination() {
+                function renderPagination(totalPages) {
                     const paginationContainer = document.getElementById('pagination');
                     paginationContainer.innerHTML = ''; // Clear the pagination container
 
@@ -239,7 +251,7 @@
                     });
                 }
 
-                function updateButtonStates() {
+                function updateButtonStates(totalPages) {
                     const prevButton = document.getElementById('prevPage');
                     const nextButton = document.getElementById('nextPage');
 
@@ -273,11 +285,20 @@
                 });
 
                 document.getElementById('nextPage').addEventListener('click', () => {
-                    if (currentPage * itemsPerPage < cameras.length) {
+                    const totalPages = Math.ceil(cameras.length / itemsPerPage);
+                    if (currentPage < totalPages) {
                         currentPage++;
                         updateUrl(currentPage);
                         renderImages(currentPage);
                     }
+                });
+
+                // Event listener for items per page dropdown
+                document.getElementById('itemsPerPage').addEventListener('change', (event) => {
+                    itemsPerPage = parseInt(event.target.value);
+                    currentPage = 1; // Reset to first page
+                    updateUrl(currentPage);
+                    renderImages(currentPage);
                 });
 
                 // Refresh images every interval
