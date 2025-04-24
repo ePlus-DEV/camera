@@ -217,7 +217,7 @@
                         img.dataset.index = i;
                         img.alt = `Camera Image ${i + 1}`;
                         img.className = "w-full h-auto rounded shadow hidden";
-                        img.src = `image.php?url=https://giaothong.hochiminhcity.gov.vn:8007/Render/CameraHandler.ashx?id=${camera.CamId}&${new Date().getTime()}`; // Adding timestamp to avoid caching
+                        img.src = `proxy.php?url=https://giaothong.hochiminhcity.gov.vn:8007/Render/CameraHandler.ashx?id=${camera.CamId}&${new Date().getTime()}`; // Adding timestamp to avoid caching
                         img.onload = () => {
                             skeleton.remove(); // Remove the skeleton loader
                             img.classList.remove('hidden'); // Show the image
@@ -320,7 +320,7 @@
                     const images = document.querySelectorAll('#cameraImages img');
                     images.forEach(img => {
                         const camera = cameras[img.dataset.index];
-                        img.src = `image.php?url=https://giaothong.hochiminhcity.gov.vn:8007/Render/CameraHandler.ashx&id=${camera.CamId}&${new Date().getTime()}`; // Adding timestamp to avoid caching
+                        img.src = `proxy.php?url=https://giaothong.hochiminhcity.gov.vn:8007/Render/CameraHandler.ashx&id=${camera.CamId}&${new Date().getTime()}`; // Adding timestamp to avoid caching
                     });
 
                     const countdowns = document.querySelectorAll('.countdown');
