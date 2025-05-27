@@ -9,18 +9,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Xem camera giao thông TP.HCM</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        .rendering-overlay::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1;
-        }
-
         .skeleton {
             background-color: #e0e0e0;
             border-radius: 4px;
@@ -65,24 +55,102 @@
             position: absolute;
             top: 10px;
             right: 10px;
-            width: 20px;
-            /* Reduced width */
-            height: 20px;
-            /* Reduced height */
-            border-radius: 50%;
-            background: conic-gradient(#4caf50 0%, #4caf50 var(--progress), #ccc var(--progress), #ccc 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 8px;
-            /* Reduced font size */
+            width: 40px;
+            height: 40px;
             z-index: 2;
+        }
+
+        .countdown circle {
+            fill: none;
+            stroke-width: 4;
+        }
+
+        .countdown .bg {
+            stroke: #ccc;
+        }
+
+        .countdown .progress {
+            stroke: #4caf50;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 1s linear;
+        }
+
+        .countdown text {
+            fill: white;
+            font-size: 10px;
+            text-anchor: middle;
+            dominant-baseline: middle;
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #1a202c;
+            color: #cbd5e0;
+        }
+
+        body.dark-mode .bg-gray-100 {
+            background-color: #2d3748;
+        }
+
+        body.dark-mode .bg-white {
+            background-color: #4a5568;
+        }
+
+        body.dark-mode .text-gray-700 {
+            color: #a0aec0;
+        }
+
+        body.dark-mode .bg-blue-500 {
+            background-color: #3182ce;
+        }
+
+        body.dark-mode .bg-gray-200 {
+            background-color: #718096;
+        }
+
+        body.dark-mode .skeleton {
+            background-color: #4a5568;
+        }
+
+        body.dark-mode .countdown .bg {
+            stroke: #718096;
+        }
+
+        body.dark-mode .countdown text {
+            fill: #cbd5e0;
+        }
+
+        /* Dark mode toggle container */
+        .dark-mode-toggle-container {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+        }
+
+        .dark-mode-toggle-container i {
+            cursor: pointer;
+            font-size: 24px;
         }
     </style>
 </head>
 
 <body class="bg-gray-100 overflow-auto">
+    <div class="flex justify-center mt-4">
+        <label for="itemsPerPage" class="mr-2">Số lượng camera hiển thị:</label>
+        <select id="itemsPerPage" class="bg-white border border-gray-300 rounded px-2 py-1">
+            <option value="3">3</option>
+            <option value="6">6</option>
+            <option value="9" selected>9</option>
+            <option value="12">12</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+        </select>
+    </div>
+    <div class="dark-mode-toggle-container">
+        <i id="darkModeToggle" class="fas fa-moon"></i>
+    </div>
     <div id="cameraImages" class="p-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3"></div>
     <div class="flex justify-center mt-4">
         <button id="prevPage" class="bg-blue-500 text-white px-4 py-2 rounded mr-2">Trước</button>
@@ -91,6 +159,19 @@
     </div>
     <div id="pagination" class="flex justify-center mt-4 mb-4"></div>
     <script>
+        document.getElementById('darkModeToggle').addEventListener('click', () => {
+            const body = document.body;
+            const icon = document.getElementById('darkModeToggle');
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+
         fetch('data-camera.json')
             .then(response => response.json())
             .then(data => {
@@ -100,8 +181,6 @@
                     throw new Error('cameras is undefined');
                 }
 
-                const itemsPerPage = 9; // Number of images to load per page
-                const totalPages = Math.ceil(cameras.length / itemsPerPage);
                 const refreshInterval = 3000; // 3000 ms = 3 seconds
 
                 function getPageFromUrl() {
@@ -116,6 +195,7 @@
                 }
 
                 let currentPage = getPageFromUrl();
+                let itemsPerPage = parseInt(document.getElementById('itemsPerPage').value);
 
                 function renderImages(page) {
                     const container = document.getElementById('cameraImages');
@@ -127,7 +207,7 @@
                     for (let i = startIndex; i < endIndex; i++) {
                         const camera = cameras[i];
                         const imgContainer = document.createElement('div');
-                        imgContainer.className = "relative rendering-overlay"; // Add the overlay class
+                        imgContainer.className = "relative"; // Removed the overlay class
 
                         const skeleton = document.createElement('div');
                         skeleton.className = "skeleton";
@@ -137,9 +217,8 @@
                         img.dataset.index = i;
                         img.alt = `Camera Image ${i + 1}`;
                         img.className = "w-full h-auto rounded shadow hidden";
-                        img.src = `get.php?url=http://giaothong.hochiminhcity.gov.vn:8007/Render/CameraHandler.ashx?id=${camera.CamId}&${new Date().getTime()}`; // Adding timestamp to avoid caching
+                        img.src = `proxy.php?url=https://giaothong.hochiminhcity.gov.vn:8007/Render/CameraHandler.ashx?id=${camera.CamId}&${new Date().getTime()}`; // Adding timestamp to avoid caching
                         img.onload = () => {
-                            imgContainer.classList.remove('rendering-overlay'); // Remove the overlay class once the image is loaded
                             skeleton.remove(); // Remove the skeleton loader
                             img.classList.remove('hidden'); // Show the image
                         };
@@ -152,6 +231,13 @@
 
                         const countdownDiv = document.createElement('div');
                         countdownDiv.className = "countdown";
+                        countdownDiv.innerHTML = `
+                            <svg width="40" height="40">
+                                <circle class="bg" cx="20" cy="20" r="18"></circle>
+                                <circle class="progress" cx="20" cy="20" r="18" stroke-dasharray="113" stroke-dashoffset="113"></circle>
+                                <text x="20" y="20">3s</text>
+                            </svg>
+                        `;
                         imgContainer.appendChild(countdownDiv);
 
                         container.appendChild(imgContainer);
@@ -160,21 +246,25 @@
                     }
 
                     // Update page info
+                    const totalPages = Math.ceil(cameras.length / itemsPerPage);
                     document.getElementById('pageInfo').textContent = `Trang ${currentPage} / ${totalPages}`;
-                    renderPagination();
-                    updateButtonStates();
+                    renderPagination(totalPages);
+                    updateButtonStates(totalPages);
                 }
 
                 function startCountdown(element, seconds) {
                     let remainingTime = seconds;
-                    element.style.setProperty('--progress', '0%');
-                    element.textContent = `${remainingTime}s`;
+                    const progressCircle = element.querySelector('.progress');
+                    const textElement = element.querySelector('text');
+                    const circumference = 2 * Math.PI * 18;
+                    progressCircle.style.strokeDasharray = `${circumference}`;
+                    progressCircle.style.strokeDashoffset = `${circumference}`;
 
                     const interval = setInterval(() => {
                         remainingTime--;
-                        const progress = ((seconds - remainingTime) / seconds) * 100;
-                        element.style.setProperty('--progress', `${progress}%`);
-                        element.textContent = `${remainingTime}s`;
+                        const progress = ((seconds - remainingTime) / seconds) * circumference;
+                        progressCircle.style.strokeDashoffset = `${circumference - progress}`;
+                        textElement.textContent = `${remainingTime}s`;
 
                         if (remainingTime <= 0) {
                             clearInterval(interval);
@@ -182,7 +272,7 @@
                     }, 1000);
                 }
 
-                function renderPagination() {
+                function renderPagination(totalPages) {
                     const paginationContainer = document.getElementById('pagination');
                     paginationContainer.innerHTML = ''; // Clear the pagination container
 
@@ -230,7 +320,7 @@
                     const images = document.querySelectorAll('#cameraImages img');
                     images.forEach(img => {
                         const camera = cameras[img.dataset.index];
-                        img.src = `image.php?url=http://giaothong.hochiminhcity.gov.vn:8007/Render/CameraHandler.ashx&id=${camera.CamId}&${new Date().getTime()}`; // Adding timestamp to avoid caching
+                        img.src = `proxy.php?url=https://giaothong.hochiminhcity.gov.vn:8007/Render/CameraHandler.ashx&id=${camera.CamId}&${new Date().getTime()}`; // Adding timestamp to avoid caching
                     });
 
                     const countdowns = document.querySelectorAll('.countdown');
@@ -239,7 +329,7 @@
                     });
                 }
 
-                function updateButtonStates() {
+                function updateButtonStates(totalPages) {
                     const prevButton = document.getElementById('prevPage');
                     const nextButton = document.getElementById('nextPage');
 
@@ -273,11 +363,20 @@
                 });
 
                 document.getElementById('nextPage').addEventListener('click', () => {
-                    if (currentPage * itemsPerPage < cameras.length) {
+                    const totalPages = Math.ceil(cameras.length / itemsPerPage);
+                    if (currentPage < totalPages) {
                         currentPage++;
                         updateUrl(currentPage);
                         renderImages(currentPage);
                     }
+                });
+
+                // Event listener for items per page dropdown
+                document.getElementById('itemsPerPage').addEventListener('change', (event) => {
+                    itemsPerPage = parseInt(event.target.value);
+                    currentPage = 1; // Reset to first page
+                    updateUrl(currentPage);
+                    renderImages(currentPage);
                 });
 
                 // Refresh images every interval
