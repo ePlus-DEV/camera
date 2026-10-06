@@ -57,3 +57,20 @@ Hình ảnh camera được lấy từ Cổng thông tin giao thông TP.HCM. Tì
 ---
 
 © ePlus.DEV
+
+
+## SEO & discovery
+
+Production URL: <https://camera-hcm.eplus.dev/>
+
+The project exposes crawlable resources in addition to the JavaScript camera directory:
+
+- `camera.php?id={CamId}` — server-rendered canonical page for each camera.
+- `sitemap.xml` — sitemap index.
+- `sitemap.php` — dynamic sitemap containing the homepage and all camera detail pages.
+- `robots.txt` — crawler directives and sitemap discovery.
+- `llms.txt` — concise AI/LLM discovery file.
+- `agents.md` — machine-agent guidance and data semantics.
+- `manifest.webmanifest` and `favicon.svg` — app/site identity metadata.
+
+The homepage and detail pages include canonical URLs, social metadata and Schema.org JSON-LD.
