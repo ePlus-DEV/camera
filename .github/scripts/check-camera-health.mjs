@@ -2,9 +2,12 @@ import fs from "node:fs/promises"
 
 const PROXY_BASE = process.env.CAMERA_PROXY_URL || "https://camera-proxy.eplus.dev/camera"
 const ORIGIN = process.env.CAMERA_PROXY_ORIGIN || "https://eplus.dev"
-const CONCURRENCY = Number(process.env.CAMERA_HEALTH_CONCURRENCY || 12)
+const CONCURRENCY = Number(process.env.CAMERA_HEALTH_CONCURRENCY || 1)
 const TIMEOUT_MS = Number(process.env.CAMERA_HEALTH_TIMEOUT_MS || 6000)
+const DELAY_MS = Number(process.env.CAMERA_HEALTH_DELAY_MS || 250)
 const OFFLINE_AFTER = Number(process.env.CAMERA_HEALTH_OFFLINE_AFTER || 2)
+const ONLINE_GRACE_MINUTES = Number(process.env.CAMERA_HEALTH_ONLINE_GRACE_MINUTES || 30)
+const ONLINE_GRACE_MS = ONLINE_GRACE_MINUTES * 60 * 1000
 const PREVIOUS_URL =
   process.env.CAMERA_HEALTH_PREVIOUS_URL ||
   "https://raw.githubusercontent.com/ePlus-DEV/camera/status/camera-status.json"
@@ -18,6 +21,44 @@ async function loadPrevious() {
   } catch {
     return { cameras: {} }
   }
+}
+
+function isKnownUnavailablePlaceholder(bytes) {
+  if (!bytes || bytes.byteLength < 24) return false
+
+  const pngSignature = [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]
+  for (let index = 0; index < pngSignature.length; index += 1) {
+    if (bytes[index] !== pngSignature[index]) return false
+  }
+
+  const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength)
+  const width = view.getUint32(16, false)
+  const height = view.getUint32(20, false)
+
+  return width === 290 && height === 183
+}
+
+async function readImagePrefix(reader, minimumBytes = 24) {
+  const chunks = []
+  let total = 0
+
+  while (total < minimumBytes) {
+    const { value, done } = await reader.read()
+    if (done) break
+    if (value?.byteLength) {
+      chunks.push(value)
+      total += value.byteLength
+    }
+  }
+
+  const prefix = new Uint8Array(total)
+  let offset = 0
+  for (const chunk of chunks) {
+    prefix.set(chunk, offset)
+    offset += chunk.byteLength
+  }
+
+  return prefix
 }
 
 async function probe(camera) {
@@ -73,10 +114,10 @@ async function probe(camera) {
       }
     }
 
-    const { value, done } = await reader.read()
+    const prefix = await readImagePrefix(reader)
     await reader.cancel().catch(() => {})
 
-    if (done || !value || value.byteLength === 0) {
+    if (!prefix.byteLength) {
       return {
         ok: false,
         httpStatus: response.status,
@@ -86,12 +127,23 @@ async function probe(camera) {
       }
     }
 
+    if (isKnownUnavailablePlaceholder(prefix)) {
+      return {
+        ok: false,
+        httpStatus: response.status,
+        contentType,
+        latencyMs: Date.now() - startedAt,
+        error: "Image unavailable placeholder",
+        placeholder: true,
+      }
+    }
+
     return {
       ok: true,
       httpStatus: response.status,
       contentType,
       latencyMs: Date.now() - startedAt,
-      firstChunkBytes: value.byteLength,
+      prefixBytes: prefix.byteLength,
     }
   } catch (error) {
     return {
@@ -115,6 +167,9 @@ async function mapLimit(items, concurrency, mapper) {
       const index = cursor++
       if (index >= items.length) return
       results[index] = await mapper(items[index], index)
+      if (DELAY_MS > 0) {
+        await new Promise((resolve) => setTimeout(resolve, DELAY_MS))
+      }
     }
   }
 
@@ -152,12 +207,20 @@ async function main() {
     }
 
     const consecutiveFailures = Number(previousCamera.consecutiveFailures || 0) + 1
+    const lastSuccessAt = previousCamera.lastSuccessAt || null
+    const lastSuccessMs = lastSuccessAt ? Date.parse(lastSuccessAt) : Number.NaN
+    const recentlyHealthy =
+      Number.isFinite(lastSuccessMs) && Date.now() - lastSuccessMs <= ONLINE_GRACE_MS
+
     let status = "unknown"
 
-    if (consecutiveFailures >= OFFLINE_AFTER) {
-      status = "offline"
-    } else if (previousCamera.status === "online") {
+    // A transient placeholder is common. Keep a camera Online when a real
+    // frame was observed recently, even if the current probe is unavailable.
+    // Offline is reserved for sustained failures after the grace window.
+    if (recentlyHealthy) {
       status = "online"
+    } else if (consecutiveFailures >= OFFLINE_AFTER) {
+      status = "offline"
     }
 
     return [
@@ -166,13 +229,14 @@ async function main() {
         name: camera.CamName || "",
         status,
         checkedAt,
-        lastSuccessAt: previousCamera.lastSuccessAt || null,
+        lastSuccessAt,
         consecutiveFailures,
         httpStatus: result.httpStatus,
         contentType: result.contentType,
         latencyMs: result.latencyMs,
         currentCheckOk: false,
         error: result.error,
+        placeholder: Boolean(result.placeholder),
       },
     ]
   })
@@ -194,7 +258,9 @@ async function main() {
     checker: {
       concurrency: CONCURRENCY,
       timeoutMs: TIMEOUT_MS,
+      delayMs: DELAY_MS,
       offlineAfterConsecutiveFailures: OFFLINE_AFTER,
+      onlineGraceMinutes: ONLINE_GRACE_MINUTES,
     },
     ...summary,
     cameras: cameraStatus,

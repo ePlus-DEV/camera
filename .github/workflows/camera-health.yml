@@ -15,7 +15,7 @@ concurrency:
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
 
@@ -27,9 +27,11 @@ jobs:
         env:
           CAMERA_PROXY_URL: https://camera-proxy.eplus.dev/camera
           CAMERA_PROXY_ORIGIN: https://eplus.dev
-          CAMERA_HEALTH_CONCURRENCY: "12"
+          CAMERA_HEALTH_CONCURRENCY: "1"
           CAMERA_HEALTH_TIMEOUT_MS: "6000"
+          CAMERA_HEALTH_DELAY_MS: "250"
           CAMERA_HEALTH_OFFLINE_AFTER: "2"
+          CAMERA_HEALTH_ONLINE_GRACE_MINUTES: "30"
         run: node .github/scripts/check-camera-health.mjs
 
       - name: Publish status branch
