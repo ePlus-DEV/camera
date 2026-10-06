@@ -4163,5 +4163,1419 @@
     "Disctrict": "N/A",
     "SnapshotUrl": "tth",
     "ManagementUnit": false
+  },
+  {
+    "CamId": "595dc29c3dcfc400106f2894",
+    "CamName": "Quốc lộ 1 - Rạch Láng Le 1",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5a605f828576340017d06608",
+    "CamName": "Nguyễn Thái Sơn - Nguyễn Văn Nghi 1",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth_axis",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "6818833d6dfb4b0018f8ee9d",
+    "CamName": "Mai Bá Hương - Kênh 4",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68188fe36dfb4b0018f90520",
+    "CamName": "Trần Văn Giàu - đường Kênh 1",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68188a226dfb4b0018f8f70a",
+    "CamName": "Trần Đại Nghĩa - Võ Trần Chí",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "681889a96dfb4b0018f8f67e",
+    "CamName": "Trần Văn Giàu - cầu Tân Tạo",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "56de42f611f398ec0c4812a2",
+    "CamName": "Nút giao Mỹ Thủy 2",
+    "Disctrict": "Quận 2",
+    "SnapshotUrl": "http://camera.thongtingiaothong.vn/api/snapshot/56de42f611f398ec0c4812a2",
+    "ManagementUnit": "Khu quản lý giao thông đô thị số 2"
+  },
+  {
+    "CamId": "6922934b44912200174bc7ec",
+    "CamName": "Quốc Lộ 51 - Nguyễn Huệ",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth_axis",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "595dd8463dcfc400106f28b2",
+    "CamName": "Quốc lộ 1 - Đường Lê Thị Riêng 2",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "67e217c43215f90017863bc8",
+    "CamName": "Nguyễn Thị Định - Đường C (20-1)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5deb576d1dc17d7c5515ad00",
+    "CamName": "Điện Biên Phủ - Hai Bà Trưng",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5a6088218576340017d06693",
+    "CamName": "QL1 - Nút giao An Lạc 2",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "595dc70d3dcfc400106f289a",
+    "CamName": "Quốc lộ 1 - Ngã 4 Ga",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "595dd6093dcfc400106f28ad",
+    "CamName": "Quốc lộ 1 - Cầu Bến Cát 2",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "streaming",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "681885ff6dfb4b0018f8f1ee",
+    "CamName": "Trần Đại Nghĩa - Kênh A",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5d8cd7fb766c880017188954",
+    "CamName": "Phạm Văn Đồng - Đường 20 (hướng đi Sân bay)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "6318287ec9eae60017a19f36",
+    "CamName": "Nguyễn Thị Minh Khai - Đinh Tiên Hoàng 2",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "6792f3058c5ed4001b27f58e",
+    "CamName": "Trần Văn Giàu - Cầu Đôi",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "587476e3b807da0011e33cee",
+    "CamName": "Cộng Hòa - Út Tịch 1",
+    "Disctrict": "Quận Tân Bình",
+    "SnapshotUrl": "http://camera.thongtingiaothong.vn/api/snapshot/587476e3b807da0011e33cee",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5d9de49d766c880017188cb9",
+    "CamName": "Cao tốc LTDG - Đỗ Xuân Hợp 2",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "681826506dfb4b0018f83e64",
+    "CamName": "Mai Bá Hương - Kênh 3",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5a6083198576340017d0667a",
+    "CamName": "QL1 - Tân Kỳ Tân Quý 1",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "6922924644912200174bc737",
+    "CamName": "Quốc Lộ 51 - Mỹ Xuân - Ngãi Giao 2",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "681885a26dfb4b0018f8f176",
+    "CamName": "Lê Đình Chi - Kênh 4",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5a825ded5058170011f6ead7",
+    "CamName": "Quốc lộ 50 - Cầu Ông Thìn (2)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68188bb96dfb4b0018f8fdbf",
+    "CamName": "Vĩnh Lộc - Trần Hải Phụng",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "56df833ac062921100c143e1",
+    "CamName": "Nguyễn Hữu Thọ - Nguyễn Thị Thập 2",
+    "Disctrict": "Quận 7",
+    "SnapshotUrl": "http://camera.thongtingiaothong.vn/api/snapshot/56df833ac062921100c143e1",
+    "ManagementUnit": "Management Center of Sai Gon River Tunnel"
+  },
+  {
+    "CamId": "6792efe48c5ed4001b27f336",
+    "CamName": "Xa Lộ Hà Nội - Cổng ĐH An ninh",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "595f89323dcfc400106f28ee",
+    "CamName": "Quốc lộ 1 - BQB Cầu vượt Quang Trung A (hướng An Sương)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "595d98fc3dcfc400106f287b",
+    "CamName": "Quốc lộ 1 - An Phú Đông 13 (2)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "6818887f6dfb4b0018f8f54c",
+    "CamName": "Trần Văn Giàu - Võ Văn Vân",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68eddd0a230ee50017d040b2",
+    "CamName": "Mỹ Phước Tân Vạn - Phạm Ngọc Thạch (2)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "generic",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68a587d54e89b100173b6021",
+    "CamName": "Tỉnh Lộ 8 - Tỉnh Lộ 15 (1)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "692291f044912200174bc703",
+    "CamName": "Quốc Lộ 51 - Đường B1 - Đường N2-2",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5822b5ededeb6c0012a2d66a",
+    "CamName": "Mai Chí Thọ - Nguyễn Cơ Thạch 1",
+    "Disctrict": "Quận 2",
+    "SnapshotUrl": "http://camera.thongtingiaothong.vn/api/snapshot/5822b5ededeb6c0012a2d66a",
+    "ManagementUnit": "Management Center of Sai Gon River Tunnel"
+  },
+  {
+    "CamId": "595d984b3dcfc400106f2879",
+    "CamName": "Quốc lộ 1 - An Phú Đông 13 (1)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5b25a268f13cba001124e713",
+    "CamName": "Nam Kỳ Khởi Nghĩa - Lê Thánh Tôn",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "generic",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "662b7f651afb9c00172dc992",
+    "CamName": "11B Nguyễn Bỉnh Khiêm",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "6818884f6dfb4b0018f8f50f",
+    "CamName": "Trần Đại Nghĩa - Kênh C",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "585b2baec3f96200127dc508",
+    "CamName": "Nguyễn Văn Linh - Huỳnh Tấn Phát 2",
+    "Disctrict": "Quận 7",
+    "SnapshotUrl": "http://camera.thongtingiaothong.vn/api/snapshot/585b2baec3f96200127dc508",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5a606cd08576340017d06628",
+    "CamName": "BX Miền Đông - Đinh Bộ Lĩnh 2",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "662b80051afb9c00172dcaf6",
+    "CamName": "Nguyễn Trãi - Nguyễn Cư Trinh",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "589d0bceb3bf7600110283d6",
+    "CamName": "Cầu Sài Gòn 2 (dạ cầu)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5d8cd253766c88001718893a",
+    "CamName": "Nguyễn Tri Phương - Hùng Vương",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth_axis",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68188af96dfb4b0018f8f8e4",
+    "CamName": "Võ Trần Chí - Kênh 10 (1)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5deb576d1dc17d7c5515ad19",
+    "CamName": "Nguyễn Thị Minh Khai - Mạc Đĩnh Chi",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5b6329fdfd4edb0019c7dc0b",
+    "CamName": "Nguyễn Trãi - Nguyễn Văn Cừ",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "59ca2fa302eb490011a0a3fd",
+    "CamName": "QL1 - cầu Bình Thuận",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "generic",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "58abbee5bd82540010390ba2",
+    "CamName": "Cầu Sài Gòn 5 (dạ cầu Thủ Đức)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "58d7b756c1e33c00112b320d",
+    "CamName": "Nút giao Chợ Đệm 2 (CT Trung Lương - Bùi Thanh Khiết)",
+    "Disctrict": "Huyện Bình Chánh",
+    "SnapshotUrl": "http://camera.thongtingiaothong.vn/api/snapshot/58d7b756c1e33c00112b320d",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "6792f3cf8c5ed4001b27f61e",
+    "CamName": "Tỉnh Lộ 8 - Cầu Phú Cường",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "58175ac4edeb6c0012a2d5bb",
+    "CamName": "Mai Chí Thọ - Đồng Văn Cống 1",
+    "Disctrict": "Quận 2",
+    "SnapshotUrl": "http://camera.thongtingiaothong.vn/api/snapshot/58175ac4edeb6c0012a2d5bb",
+    "ManagementUnit": "Management Center of Sai Gon River Tunnel"
+  },
+  {
+    "CamId": "5d8cd614766c88001718894a",
+    "CamName": "Lê Quang Định - Nơ Trang Long",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68188cbf6dfb4b0018f900e9",
+    "CamName": "Võ Văn Vân - Liên Ấp 123",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "67e217ea3215f90017863bf1",
+    "CamName": "Nguyễn Thị Định - Đường C (20-2)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68ede6d0230ee50017d04d4c",
+    "CamName": "Đại lộ Bình Dương - ngã tư chợ Đình (1)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "generic",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "6922939144912200174bc80c",
+    "CamName": "Quốc Lộ 51 - đường vào cảng Cái Mép",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "595d9ba43dcfc400106f2880",
+    "CamName": "Quốc lộ 1 - An Phú Đông 12 (2)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "generic",
+    "ManagementUnit": "1"
+  },
+  {
+    "CamId": "5deb576d1dc17d7c5515ad0d",
+    "CamName": "Lê Lợi - Pasteur",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "6818863c6dfb4b0018f8f235",
+    "CamName": "Trần Đại Nghĩa - Mai Bá Hương",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68188a816dfb4b0018f8f769",
+    "CamName": "Võ Trần Chí - Thế Lữ 1",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "595da2853dcfc400106f2883",
+    "CamName": "Quốc lộ 1 - Đường 15 (1)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "585b2b1ec3f96200127dc505",
+    "CamName": "Nguyễn Văn Linh - Huỳnh Tấn Phát 1",
+    "Disctrict": "Quận 7",
+    "SnapshotUrl": "http://camera.thongtingiaothong.vn/api/snapshot/585b2b1ec3f96200127dc505",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "595dd9ac3dcfc400106f28b4",
+    "CamName": "Quốc lộ 1 - BQB Trước UBND Q12 (hướng đi An Sương)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5d8cd8e2766c880017188958",
+    "CamName": "Phạm Văn Đồng - Hiệp Bình (hướng đi Sân bay)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "681888b66dfb4b0018f8f58c",
+    "CamName": "VX Trần Văn Giàu - Tỉnh Lộ 10",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5b6c15b8ca0577001163fe39",
+    "CamName": "Nguyễn Hữu Cảnh 3 (Hầm chui)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "generic",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "58df4c2bdc195800111e04b7",
+    "CamName": "Thăng Long - Phan Thúc Duyện",
+    "Disctrict": "Quận Tân Bình",
+    "SnapshotUrl": "http://camera.thongtingiaothong.vn/api/snapshot/58df4c2bdc195800111e04b7",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "595dd3a63dcfc400106f28a7",
+    "CamName": "Quốc lộ 1 - Đường Tô Ngọc Vân 1",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68ede5d4230ee50017d04c24",
+    "CamName": "Đại lộ Bình Dương - ngã 5 Phước Kiến (1)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "generic",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "662b56c51afb9c00172d9071",
+    "CamName": "Bạch Đằng - Đặng Văn Sâm",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5deb576d1dc17d7c5515ad12",
+    "CamName": "Nam Kỳ Khởi Nghĩa - Lê Lợi",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "681887346dfb4b0018f8f36a",
+    "CamName": "Trần Văn Giàu - Lê Đình Chi",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68188ab56dfb4b0018f8f7be",
+    "CamName": "Võ Trần Chí - Thế Lữ 2",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "595da7783dcfc400106f2888",
+    "CamName": "Quốc lộ 1 - Đường Vườn Lài 1",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": "1"
+  },
+  {
+    "CamId": "66b1c22f779f740018673f6e",
+    "CamName": "Vòng xoay Phú Lâm (2)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "6818901a6dfb4b0018f9058a",
+    "CamName": "Tỉnh Lộ 10 - cầu Tân Tạo",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68188bf46dfb4b0018f8ff12",
+    "CamName": "Vĩnh Lộc - kênh Trung Ương",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68a589a54e89b100173b6267",
+    "CamName": "Tỉnh Lộ 8 - Sông Lu (1)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68ede60a230ee50017d04c69",
+    "CamName": "Đại lộ Bình Dương - ngã 5 Phước Kiến (2)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "generic",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "59ca329d02eb490011a0a410",
+    "CamName": "QL1 - Nút giao An Lạc 1",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": "1"
+  },
+  {
+    "CamId": "5d8cdcf0766c880017188972",
+    "CamName": "Nút giao Lê Đại Hành 1 (Bình Thới)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "67e217643215f90017863b73",
+    "CamName": "Nguyễn Thị Định - Cổng A (20)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "58af9670bd82540010390c34",
+    "CamName": "Phạm Văn Đồng - Phan Văn Trị 1",
+    "Disctrict": "Quận Bình Thạnh",
+    "SnapshotUrl": "http://camera.thongtingiaothong.vn/api/snapshot/58af9670bd82540010390c34",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68188b786dfb4b0018f8face",
+    "CamName": "Láng Le Bàu Cò - Thích Thiện Hòa",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "6623f0246f998a001b252797",
+    "CamName": "Âu Cơ - Lũy Bán Bích",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "595da7d93dcfc400106f288a",
+    "CamName": "Quốc lộ 1 - Đường Vườn Lài 2",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68ae7f327d735d00173c74e4",
+    "CamName": "Cầu Bình Triệu (2) hướng đi xòng xoay",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "6878bab06145d3001ba517f7",
+    "CamName": "Mai Chí Thọ - Trần Quý Kiên (1)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68edd621230ee50017d031c5",
+    "CamName": "Mỹ Phước Tân Vạn - Phạm Ngọc Thạch (1)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "generic",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68ede0cf230ee50017d04657",
+    "CamName": "Mỹ Phước Tân Vạn - Điện Biên Phủ (1)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "generic",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "587479b1b807da0011e33cf9",
+    "CamName": "Trường Chinh - Tây Thạnh 2",
+    "Disctrict": "Quận Tân Bình",
+    "SnapshotUrl": "http://camera.thongtingiaothong.vn/api/snapshot/587479b1b807da0011e33cf9",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "595ddbbf3dcfc400106f28b8",
+    "CamName": "Quốc lộ 1 - Cầu vượt Tân Thới Hiệp 3",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "595f8f0b3dcfc400106f28f4",
+    "CamName": "Quốc lộ 1 - BQB Cầu vượt Quang Trung B (hướng Ngã 4 Ga)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "6818868b6dfb4b0018f8f298",
+    "CamName": "Trần Văn Giàu - Mai Bá Hương",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5b0b7e1c0e517b00119fd80b",
+    "CamName": "Nguyễn Duy Trinh (Chợ Long Trường)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "681887836dfb4b0018f8f3d1",
+    "CamName": "Trần Đại Nghĩa - Kênh B",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "681884726dfb4b0018f8f035",
+    "CamName": "Lê Chính Đang - Lê Đình Chi",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68fae32b6b936b001721878b",
+    "CamName": "Võ Chí Công - Cầu Ngọn Ngay (1)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "595dc2f03dcfc400106f2896",
+    "CamName": "Quốc lộ 1 - Rạch Láng Le 2",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "681883f56dfb4b0018f8ef97",
+    "CamName": "Lê Chính Đang 2",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "662b85f51afb9c00172dd1c2",
+    "CamName": "Nguyễn Thị Nghĩa - Lê Lai",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "692293f044912200174bc856",
+    "CamName": "Quốc Lộ 51 - Hội Bài Châu Pha",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68a588c04e89b100173b616b",
+    "CamName": "Tỉnh Lộ 8 - Bến Than (2)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "6922944044912200174bc883",
+    "CamName": "Quốc Lộ 51 - Hoàng Sa 2",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68a5894a4e89b100173b6202",
+    "CamName": "Tỉnh Lộ 8 - KCN Tân Quy (2)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "589d0b74b3bf7600110283d4",
+    "CamName": "Cầu Sài Gòn 4 (Thủ Đức 1)",
+    "Disctrict": "Quận 2",
+    "SnapshotUrl": "http://camera.thongtingiaothong.vn/api/snapshot/589d0b74b3bf7600110283d4",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "58d8ebd2dc195800111e0429",
+    "CamName": "Cao tốc LTDG - Cầu Bà Dạt 2",
+    "Disctrict": "Quận 2",
+    "SnapshotUrl": "http://camera.thongtingiaothong.vn/api/snapshot/58d8ebd2dc195800111e0429",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "6792f9c88c5ed4001b27fb3d",
+    "CamName": "Quốc Lộ 1K - Đường GS1",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "595d9b3b3dcfc400106f287e",
+    "CamName": "Quốc lộ 1 - An Phú Đông 12 (1)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "662b50e51afb9c00172d886a",
+    "CamName": "Bà Hom - An Dương Vương",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5b0b74280e517b00119fd7f9",
+    "CamName": "Nguyễn Tất Thành - Cảng Sài Gòn",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "692293c644912200174bc83b",
+    "CamName": "Quốc Lộ 51 - Xô Viết Nghệ Tĩnh",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "63b54a48bfd3d90017ea7850",
+    "CamName": "Lã Xuân Oai - Lò Lu",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5b6005b6fd4edb0019c7db25",
+    "CamName": "Trần Hưng Đạo - Nguyễn Biểu",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "595dd4133dcfc400106f28a9",
+    "CamName": "Quốc lộ 1 - Đường Tô Ngọc Vân 2",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68188e8d6dfb4b0018f9038b",
+    "CamName": "Thanh Niên - gần trung tâm kiểm định giống cây",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "56df857fc062921100c143e7",
+    "CamName": "Trần Quốc Hoàn - Phan Thúc Duyện",
+    "Disctrict": "Quận Tân Bình",
+    "SnapshotUrl": "http://camera.thongtingiaothong.vn/api/snapshot/56df857fc062921100c143e7",
+    "ManagementUnit": "Management Center of Sai Gon River Tunnel"
+  },
+  {
+    "CamId": "5deb576d1dc17d7c5515ad1b",
+    "CamName": "Hoàng Diệu - Cầu Ông Lãnh",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "58744dd9b807da0011e33cb5",
+    "CamName": "Quốc lộ 50 - Tạ Quang Bửu",
+    "Disctrict": "Quận 8",
+    "SnapshotUrl": "http://camera.thongtingiaothong.vn/api/snapshot/58744dd9b807da0011e33cb5",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "56df8416c062921100c143e4",
+    "CamName": "Nút giao Nguyễn Thái Sơn 2 (Nguyễn Kiệm)",
+    "Disctrict": "Quận Gò Vấp",
+    "SnapshotUrl": "http://camera.thongtingiaothong.vn/api/snapshot/56df8416c062921100c143e4",
+    "ManagementUnit": "Management Center of Sai Gon River Tunnel"
+  },
+  {
+    "CamId": "68ede438230ee50017d04a79",
+    "CamName": "Mỹ Phước Tân Vạn - ĐT 743A (1)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "generic",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68188e466dfb4b0018f902f2",
+    "CamName": "Thanh Niên - gần chùa Liên Hoa",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "681883b46dfb4b0018f8ef39",
+    "CamName": "Lê Chính Đang 1",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "589b3ceeb3bf7600110283c3",
+    "CamName": "QL 22 - Nguyễn Văn Bứa 1",
+    "Disctrict": "Huyện Hóc Môn",
+    "SnapshotUrl": "http://camera.thongtingiaothong.vn/api/snapshot/589b3ceeb3bf7600110283c3",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "595dcab53dcfc400106f289d",
+    "CamName": "Quốc lộ 1 - BQB Trước bến xe Ngã 4 Ga (hướng đi Bình Phước)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68a589c84e89b100173b629d",
+    "CamName": "Tỉnh Lộ 8 - Sông Lu (2)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "6792ef4f8c5ed4001b27f2c0",
+    "CamName": "Quốc Lộ 1 - Ba Làng",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "6922928544912200174bc755",
+    "CamName": "Quốc Lộ 51 - Cách Mạng Tháng 8 (Phú Mỹ)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68ede112230ee50017d046a6",
+    "CamName": "Mỹ Phước Tân Vạn - Điện Biên Phủ (2)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "generic",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "6792f1008c5ed4001b27f41f",
+    "CamName": "Quốc Lộ 22 - Võ Văn Điều",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68a587fc4e89b100173b6054",
+    "CamName": "Tỉnh Lộ 8 - Tỉnh Lộ 15 (2)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "58b57a6c17139d0010f35d65",
+    "CamName": "Xa Lộ Hà Nội - Đường D13",
+    "Disctrict": "Quận 9",
+    "SnapshotUrl": "http://camera.thongtingiaothong.vn/api/snapshot/58b57a6c17139d0010f35d65",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "631813ebc9eae60017a196b0",
+    "CamName": "Cầu Sài Gòn 8 (Thủ Đức)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68188cfa6dfb4b0018f9013c",
+    "CamName": "Thanh Niên - kênh 1",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68ede227230ee50017d0480b",
+    "CamName": "Mỹ Phước Tân Vạn - Thủ Khoa Huân (1)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "generic",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68ede25b230ee50017d0484d",
+    "CamName": "Mỹ Phước Tân Vạn - Thủ Khoa Huân (2)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "generic",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68188c876dfb4b0018f9007b",
+    "CamName": "Võ Văn Văn - đường 1A",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "59ca2ecb02eb490011a0a3f6",
+    "CamName": "QL1 - Trạm thu phí AS-AL 1",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "generic",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "6792f1b78c5ed4001b27f4a9",
+    "CamName": "Quốc Lộ 13 - Cầu Vĩnh Bình",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "58d8ec0adc195800111e042b",
+    "CamName": "Cao tốc LTDG - Cầu Bà Dạt 1",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "595dc5ac3dcfc400106f2898",
+    "CamName": "Quốc lộ 1 - BQB Đường dẫn cầu vượt Ngã 4 Ga (hướng đi An Sương)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "69047bfa10c1b90017c62ccc",
+    "CamName": "Mỹ Phước - Tân Vận - Huỳnh Văn Lũy (1)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "generic",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5a8251575058170011f6eabc",
+    "CamName": "Lê Văn Việt - Đình Phong Phú 2",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5a6061868576340017d06611",
+    "CamName": "Quang Trung - Bà Triệu",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "662b82761afb9c00172dcda3",
+    "CamName": "Trần Quang Khải - Trần Nguyên Đán",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5d9ddd49766c880017188c94",
+    "CamName": "Nút giao Hàng Xanh 1 (Viện Máy tính)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "6922931044912200174bc7cf",
+    "CamName": "Quốc Lộ 51 - Trần Hưng Đạo",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "6792f16e8c5ed4001b27f482",
+    "CamName": "Cao tốc LT-DG - Trạm thu phí Long Phước",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "595f8d813dcfc400106f28f2",
+    "CamName": "Quốc lộ 1 - Quang Trung 2 (hướng đi An Sương)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": "1"
+  },
+  {
+    "CamId": "68a5871d4e89b100173b5f37",
+    "CamName": "Tỉnh Lộ 8 - Hà Duy Phiên (1)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "681885376dfb4b0018f8f0f2",
+    "CamName": "Lê Đình Chi - Kênh 3",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5d9dddb9766c880017188c96",
+    "CamName": "Nút giao Hàng Xanh 2 (ĐH Hồng Bàng)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68188c236dfb4b0018f8ff8f",
+    "CamName": "Vĩnh Lộc - Lại Hùng Cường",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "587460aab807da0011e33cc2",
+    "CamName": "Quốc lộ 1 - ĐH Nông Lâm 1",
+    "Disctrict": "Quận Thủ Đức",
+    "SnapshotUrl": "http://camera.thongtingiaothong.vn/api/snapshot/587460aab807da0011e33cc2",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "59d3524f02eb490011a0a61b",
+    "CamName": "Cầu vượt Trạm 2 (TĐ ->Q9)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68ede746230ee50017d04dcc",
+    "CamName": "Đại lộ Bình Dương - ngã tư chợ Đình (2)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "generic",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5b19d2f9af4ff60011d6ea4f",
+    "CamName": "Nguyễn Tất Thành - Xóm Chiếu",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "595f91653dcfc400106f28f6",
+    "CamName": "Quốc lộ 1 - Cầu vượt An Sương (Song hành QL 22)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "streaming",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "681888066dfb4b0018f8f4c2",
+    "CamName": "Trần Văn Giàu - Võ Hữu Lợi",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "63b548ecbfd3d90017ea77d2",
+    "CamName": "Nguyễn Duy Trinh - Võ Chí Công 1",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "6792f03d8c5ed4001b27f378",
+    "CamName": "Quốc Lộ 50 - Cổng chào Long An",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68ede490230ee50017d04ae5",
+    "CamName": "Mỹ Phước Tân Vạn - ĐT 743A (2)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "generic",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "681889ec6dfb4b0018f8f6cb",
+    "CamName": "Nguyễn Cửu Phú - Trần Đại Nghĩa",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5d9dde8e766c880017188c9a",
+    "CamName": "Nút giao Hàng Xanh 4 (Cầu Văn Thánh - Hàng Xanh)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "6922941e44912200174bc86b",
+    "CamName": "Quốc Lộ 51 - Hoàng Sa 1",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5d9ddf0f766c880017188c9e",
+    "CamName": "Nút giao Hàng Xanh 6 (Cầu Điện Biên Phủ - Hàng Xanh)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "681883866dfb4b0018f8eef6",
+    "CamName": "Mai Bá Hương - Lê Chính Đang",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5a825ab55058170011f6ead2",
+    "CamName": "Nguyễn Văn Linh - Nguyễn Hữu Thọ (2)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5b0b7bbe0e517b00119fd806",
+    "CamName": "Nguyễn Văn Cừ - Trần Hưng Đạo 2",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "662b7d8a1afb9c00172dc71f",
+    "CamName": "Lê Lai - Phạm Hồng Thái",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5b25a1dcf13cba001124e710",
+    "CamName": "Lý Tự Trọng - Pasteur 1",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "generic",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68fae2966b936b00172186a6",
+    "CamName": "Võ Chí Công - đường số 5 (1)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "589b46b3b3bf7600110283d0",
+    "CamName": "Hà Huy Giáp - Cầu Phú Long 2",
+    "Disctrict": "Quận 12",
+    "SnapshotUrl": "http://camera.thongtingiaothong.vn/api/snapshot/589b46b3b3bf7600110283d0",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "6792f2248c5ed4001b27f4dc",
+    "CamName": "Quốc Lộ 1 - Độc Lập (cổng KCN Sóng Thần)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5deb576d1dc17d7c5515ad1d",
+    "CamName": "Nguyễn Công Trứ - Calmette 2",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68ae7e997d735d00173c7445",
+    "CamName": "Cầu Bình Triệu (2) hướng đi lên cầu Bình Triệu 2",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5b0b835b0e517b00119fd80d",
+    "CamName": "Tam Bình (Số 81)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5b6c155aca0577001163fe36",
+    "CamName": "Nguyễn Hữu Cảnh 1 (Dạ cầu)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "generic",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "66b1c190779f740018673ed4",
+    "CamName": "Nguyễn Trãi - Trần Phú",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68a589294e89b100173b61d9",
+    "CamName": "Tỉnh Lộ 8 - KCN Tân Quy (1)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "595d92013dcfc400106f2877",
+    "CamName": "Quốc Lộ 1A - Cầu Bình Phước",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "583f976361cfea0012cf68f9",
+    "CamName": "Nguyễn Thị Định - Lê Phụng Hiểu",
+    "Disctrict": "Quận 2",
+    "SnapshotUrl": "http://camera.thongtingiaothong.vn/api/snapshot/583f976361cfea0012cf68f9",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "681886f26dfb4b0018f8f31a",
+    "CamName": "Trần Văn Giàu - Thanh Niên",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "59ca2f4402eb490011a0a3f9",
+    "CamName": "QL1 - Tân Kỳ Tân Quý 2",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "681891e26dfb4b0018f90a69",
+    "CamName": "Nguyễn Cửu Phú - Trần Văn Giàu",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "595da2dd3dcfc400106f2885",
+    "CamName": "Quốc lộ 1 - Đường 15 (2)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "595f80e83dcfc400106f28e4",
+    "CamName": "Quốc lộ 1 - BQB Cầu vượt Tân Thới Hiệp B (hướng Bình Phước)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5a607ea98576340017d0666d",
+    "CamName": "QL1-Phan Văn Hớn (Q12)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "6922921744912200174bc71d",
+    "CamName": "Quốc Lộ 51 - Mỹ Xuân - Ngãi Giao 1",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68fae2b66b936b00172186e5",
+    "CamName": "Võ Chí Công - đường số 5 (2)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68a5873d4e89b100173b5f60",
+    "CamName": "Tỉnh Lộ 8 - Hà Duy Phiên (2)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "59ca2e6002eb490011a0a3f3",
+    "CamName": "QL1 - TTDK 50-07V",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "generic",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "5b6c1618ca0577001163fe3c",
+    "CamName": "Nguyễn Hữu Cảnh 2 (Chân cầu)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "generic",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "56df85bdc062921100c143e8",
+    "CamName": "Phan Đình Giót - Phan Thúc Duyện",
+    "Disctrict": "Quận Tân Bình",
+    "SnapshotUrl": "http://camera.thongtingiaothong.vn/api/snapshot/56df85bdc062921100c143e8",
+    "ManagementUnit": "Management Center of Sai Gon River Tunnel"
+  },
+  {
+    "CamId": "692291bb44912200174bc6e8",
+    "CamName": "Quốc Lộ 51 - KCN Mỹ Xuân A",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "59ca31d602eb490011a0a40b",
+    "CamName": "QL1 - Hồ Học Lãm",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68ae7ee47d735d00173c7492",
+    "CamName": "Cầu Bình Triệu (2) hướng vòng xoay",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68188b296dfb4b0018f8f9a3",
+    "CamName": "Võ Trần Chí - Kênh 10 (2)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "692292c044912200174bc76d",
+    "CamName": "Quốc Lộ 51 - Nguyễn Văn Linh",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68188d586dfb4b0018f9018d",
+    "CamName": "Thanh Niên - Phạm Văn Hai",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
+  },
+  {
+    "CamId": "68a588984e89b100173b6138",
+    "CamName": "Tỉnh Lộ 8 - Bến Than (1)",
+    "Disctrict": "N/A",
+    "SnapshotUrl": "tth",
+    "ManagementUnit": false
   }
 ]
