@@ -1,4 +1,5 @@
 name: Camera health status
+# Second validation run for consecutive-failure classification
 
 on:
   push:
