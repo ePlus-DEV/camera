@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -37,7 +37,10 @@ jobs:
         run: composer install --no-interaction --prefer-dist --no-progress
 
       - name: Lint PHP
-        run: php -l proxy.php
+        run: |
+          for file in ./*.php; do
+            php -l "$file"
+          done
 
       - name: Validate camera data
         run: |
@@ -47,6 +50,7 @@ jobs:
                 fwrite(STDERR, "Camera data must be a non-empty array.\n");
                 exit(1);
             }
+            $ids = [];
             foreach ($data as $index => $camera) {
                 $id = $camera["CamId"] ?? "";
                 $name = trim((string) ($camera["CamName"] ?? ""));
@@ -54,16 +58,60 @@ jobs:
                     fwrite(STDERR, "Invalid CamId at index {$index}: {$id}\n");
                     exit(1);
                 }
+                if (isset($ids[$id])) {
+                    fwrite(STDERR, "Duplicate CamId at index {$index}: {$id}\n");
+                    exit(1);
+                }
+                $ids[$id] = true;
                 if ($name === "") {
                     fwrite(STDERR, "Missing CamName at index {$index}.\n");
                     exit(1);
                 }
             }
-            echo "Validated " . count($data) . " cameras.\n";
+            echo "Validated " . count($data) . " unique cameras.\n";
           '
 
-      - name: Smoke-check UI anchors
+      - name: Validate sitemap
+        run: |
+          php sitemap.php > /tmp/camera-sitemap.xml
+          php -r '
+            $data = json_decode(file_get_contents("data-camera.json"), true, 512, JSON_THROW_ON_ERROR);
+            $xml = simplexml_load_file("/tmp/camera-sitemap.xml");
+            if ($xml === false) {
+                fwrite(STDERR, "Generated sitemap is invalid XML.\n");
+                exit(1);
+            }
+            $expected = count($data) + 1;
+            $actual = count($xml->url);
+            if ($actual !== $expected) {
+                fwrite(STDERR, "Expected {$expected} sitemap URLs, got {$actual}.\n");
+                exit(1);
+            }
+            echo "Validated {$actual} sitemap URLs.\n";
+          '
+          grep -q 'https://camera-hcm.eplus.dev/sitemap.php' sitemap.xml
+          grep -q 'Sitemap: https://camera-hcm.eplus.dev/sitemap.xml' robots.txt
+
+      - name: Smoke-check SEO anchors
         run: |
           grep -q 'id="cameraGrid"' index.html
           grep -q 'id="searchInput"' index.html
-          grep -q 'proxy.php?id=' index.html
+          grep -q 'rel="canonical" href="https://camera-hcm.eplus.dev/"' index.html
+          grep -q 'application/ld+json' index.html
+          grep -q 'camera.php?id=' index.html
+          grep -q 'max-image-preview:large' index.html
+          grep -q 'favicon.svg' index.html
+          grep -q 'manifest.webmanifest' index.html
+
+      - name: HTTP smoke test
+        run: |
+          FIRST_ID="$(php -r '$data=json_decode(file_get_contents("data-camera.json"), true, 512, JSON_THROW_ON_ERROR); echo $data[0]["CamId"];')"
+          php -S 127.0.0.1:8080 > /tmp/camera-php-server.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID"' EXIT
+          sleep 1
+
+          curl -fsS "http://127.0.0.1:8080/" | grep -q 'Camera giao thông TP.HCM'
+          curl -fsS "http://127.0.0.1:8080/camera.php?id=$FIRST_ID" | grep -q 'https://camera-hcm.eplus.dev/camera.php?id='
+          curl -fsS "http://127.0.0.1:8080/camera.php?id=$FIRST_ID" | grep -q 'application/ld+json'
+          curl -fsS "http://127.0.0.1:8080/sitemap.php" | grep -q '<urlset'
