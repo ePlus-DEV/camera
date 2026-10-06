@@ -1,0 +1,19 @@
+{
+  "name": "Camera giao thông TP.HCM",
+  "short_name": "Camera HCM",
+  "description": "Tra cứu và theo dõi camera giao thông TP.HCM theo khu vực.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "lang": "vi-VN",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
