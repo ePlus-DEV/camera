@@ -2,10 +2,12 @@ import fs from "node:fs/promises"
 
 const PROXY_BASE = process.env.CAMERA_PROXY_URL || "https://camera-proxy.eplus.dev/camera"
 const ORIGIN = process.env.CAMERA_PROXY_ORIGIN || "https://eplus.dev"
-const CONCURRENCY = Number(process.env.CAMERA_HEALTH_CONCURRENCY || 12)
+const CONCURRENCY = Number(process.env.CAMERA_HEALTH_CONCURRENCY || 1)
 const TIMEOUT_MS = Number(process.env.CAMERA_HEALTH_TIMEOUT_MS || 6000)
 const DELAY_MS = Number(process.env.CAMERA_HEALTH_DELAY_MS || 250)
 const OFFLINE_AFTER = Number(process.env.CAMERA_HEALTH_OFFLINE_AFTER || 2)
+const ONLINE_GRACE_MINUTES = Number(process.env.CAMERA_HEALTH_ONLINE_GRACE_MINUTES || 30)
+const ONLINE_GRACE_MS = ONLINE_GRACE_MINUTES * 60 * 1000
 const PREVIOUS_URL =
   process.env.CAMERA_HEALTH_PREVIOUS_URL ||
   "https://raw.githubusercontent.com/ePlus-DEV/camera/status/camera-status.json"
@@ -205,12 +207,20 @@ async function main() {
     }
 
     const consecutiveFailures = Number(previousCamera.consecutiveFailures || 0) + 1
+    const lastSuccessAt = previousCamera.lastSuccessAt || null
+    const lastSuccessMs = lastSuccessAt ? Date.parse(lastSuccessAt) : Number.NaN
+    const recentlyHealthy =
+      Number.isFinite(lastSuccessMs) && Date.now() - lastSuccessMs <= ONLINE_GRACE_MS
+
     let status = "unknown"
 
-    if (consecutiveFailures >= OFFLINE_AFTER) {
-      status = "offline"
-    } else if (previousCamera.status === "online") {
+    // A transient placeholder is common. Keep a camera Online when a real
+    // frame was observed recently, even if the current probe is unavailable.
+    // Offline is reserved for sustained failures after the grace window.
+    if (recentlyHealthy) {
       status = "online"
+    } else if (consecutiveFailures >= OFFLINE_AFTER) {
+      status = "offline"
     }
 
     return [
@@ -219,7 +229,7 @@ async function main() {
         name: camera.CamName || "",
         status,
         checkedAt,
-        lastSuccessAt: previousCamera.lastSuccessAt || null,
+        lastSuccessAt,
         consecutiveFailures,
         httpStatus: result.httpStatus,
         contentType: result.contentType,
@@ -250,6 +260,7 @@ async function main() {
       timeoutMs: TIMEOUT_MS,
       delayMs: DELAY_MS,
       offlineAfterConsecutiveFailures: OFFLINE_AFTER,
+      onlineGraceMinutes: ONLINE_GRACE_MINUTES,
     },
     ...summary,
     cameras: cameraStatus,
