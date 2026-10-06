@@ -50,6 +50,7 @@ jobs:
                 fwrite(STDERR, "Camera data must be a non-empty array.\n");
                 exit(1);
             }
+            $ids = [];
             foreach ($data as $index => $camera) {
                 $id = $camera["CamId"] ?? "";
                 $name = trim((string) ($camera["CamName"] ?? ""));
@@ -57,12 +58,17 @@ jobs:
                     fwrite(STDERR, "Invalid CamId at index {$index}: {$id}\n");
                     exit(1);
                 }
+                if (isset($ids[$id])) {
+                    fwrite(STDERR, "Duplicate CamId at index {$index}: {$id}\n");
+                    exit(1);
+                }
+                $ids[$id] = true;
                 if ($name === "") {
                     fwrite(STDERR, "Missing CamName at index {$index}.\n");
                     exit(1);
                 }
             }
-            echo "Validated " . count($data) . " cameras.\n";
+            echo "Validated " . count($data) . " unique cameras.\n";
           '
 
       - name: Validate sitemap
