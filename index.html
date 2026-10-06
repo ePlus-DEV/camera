@@ -586,7 +586,7 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/>
                     </svg>
-                    <input id="searchInput" type="search" placeholder="Tên đường, giao lộ, địa chỉ, phường, quận..." autocomplete="off">
+                    <input id="searchInput" type="search" placeholder="Tên đường, giao lộ, quận..." autocomplete="off">
                     <button id="clearSearch" class="clear-search" type="button" aria-label="Xóa tìm kiếm">×</button>
                 </div>
             </div>
@@ -762,14 +762,7 @@
                 state.filtered = state.cameras.filter(camera => {
                     const district = getDistrict(camera);
                     const matchesDistrict = !state.district || district === state.district;
-                    const haystack = normalize([
-                        camera.CamName,
-                        district,
-                        camera.Address,
-                        camera.Ward,
-                        camera.District,
-                        camera.Province
-                    ].filter(Boolean).join(' '));
+                    const haystack = normalize(camera.CamName + ' ' + district);
                     return matchesDistrict && (!query || haystack.includes(query));
                 });
 
