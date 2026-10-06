@@ -1,4 +1,8 @@
 {
+    "name": "eplus-dev/camera",
+    "description": "Responsive Ho Chi Minh City traffic camera viewer.",
+    "type": "project",
+    "license": "MIT",
     "require": {
         "guzzlehttp/guzzle": "^7.9"
     }

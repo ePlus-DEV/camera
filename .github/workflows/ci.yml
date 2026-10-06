@@ -1,0 +1,69 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          tools: composer:v2
+          coverage: none
+
+      - name: Validate Composer
+        # Metadata-only composer.json changes do not affect installed dependencies.
+        # Keep schema validation strict while allowing the legacy lockfile hash.
+        run: composer validate --strict --no-check-lock
+
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist --no-progress
+
+      - name: Lint PHP
+        run: php -l proxy.php
+
+      - name: Validate camera data
+        run: |
+          php -r '
+            $data = json_decode(file_get_contents("data-camera.json"), true, 512, JSON_THROW_ON_ERROR);
+            if (!is_array($data) || count($data) === 0) {
+                fwrite(STDERR, "Camera data must be a non-empty array.\n");
+                exit(1);
+            }
+            foreach ($data as $index => $camera) {
+                $id = $camera["CamId"] ?? "";
+                $name = trim((string) ($camera["CamName"] ?? ""));
+                if (!preg_match("/^[a-f0-9]{24}$/i", (string) $id)) {
+                    fwrite(STDERR, "Invalid CamId at index {$index}: {$id}\n");
+                    exit(1);
+                }
+                if ($name === "") {
+                    fwrite(STDERR, "Missing CamName at index {$index}.\n");
+                    exit(1);
+                }
+            }
+            echo "Validated " . count($data) . " cameras.\n";
+          '
+
+      - name: Smoke-check UI anchors
+        run: |
+          grep -q 'id="cameraGrid"' index.html
+          grep -q 'id="searchInput"' index.html
+          grep -q 'proxy.php?id=' index.html

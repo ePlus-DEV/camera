@@ -1,389 +1,976 @@
 <!DOCTYPE html>
-<!-- 
-    © 2024 ePlus.DEV. All rights reserved.
--->
+<!-- © 2024-2026 ePlus.DEV. All rights reserved. -->
 <html lang="vi">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xem camera giao thông TP.HCM</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta name="theme-color" content="#0f172a">
+    <meta name="description" content="Theo dõi camera giao thông TP.HCM theo thời gian thực.">
+    <title>Camera giao thông TP.HCM</title>
     <style>
-        .skeleton {
-            background-color: #e0e0e0;
-            border-radius: 4px;
-            width: 100%;
-            height: 200px;
-            position: relative;
-            overflow: hidden;
+        :root {
+            color-scheme: light;
+            --bg: #f8fafc;
+            --surface: rgba(255,255,255,.92);
+            --surface-solid: #fff;
+            --surface-muted: #f1f5f9;
+            --text: #0f172a;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --primary: #2563eb;
+            --primary-strong: #1d4ed8;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --warning: #d97706;
+            --shadow: 0 14px 34px rgba(15,23,42,.08);
+            --radius: 18px;
         }
 
-        .skeleton::before {
-            content: '';
-            display: block;
-            position: absolute;
+        :root[data-theme="dark"] {
+            color-scheme: dark;
+            --bg: #08111f;
+            --surface: rgba(15,23,42,.88);
+            --surface-solid: #0f172a;
+            --surface-muted: #172033;
+            --text: #e5edf8;
+            --muted: #94a3b8;
+            --border: #243247;
+            --primary: #60a5fa;
+            --primary-strong: #93c5fd;
+            --success: #4ade80;
+            --danger: #f87171;
+            --warning: #fbbf24;
+            --shadow: 0 18px 42px rgba(0,0,0,.28);
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top left, rgba(37,99,235,.11), transparent 30rem),
+                var(--bg);
+            color: var(--text);
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        button, input, select { font: inherit; }
+        button { cursor: pointer; }
+        button:disabled { cursor: not-allowed; opacity: .48; }
+
+        .app-shell {
+            width: min(1480px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 24px 0 40px;
+        }
+
+        .topbar {
+            position: sticky;
             top: 0;
-            left: -150px;
+            z-index: 30;
+            margin: -24px -16px 20px;
+            padding: 18px 16px 14px;
+            background: color-mix(in srgb, var(--bg) 84%, transparent);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border-bottom: 1px solid color-mix(in srgb, var(--border) 72%, transparent);
+        }
+
+        .topbar-inner {
+            width: min(1480px, 100%);
+            margin: 0 auto;
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            min-width: 0;
+        }
+
+        .brand-mark {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, #2563eb, #0ea5e9);
+            color: white;
+            box-shadow: 0 10px 24px rgba(37,99,235,.24);
+            flex: 0 0 auto;
+        }
+
+        .brand-mark svg { width: 24px; height: 24px; }
+        h1 { margin: 0; font-size: clamp(1.05rem, 2vw, 1.35rem); line-height: 1.2; }
+        .subtitle { margin: 4px 0 0; color: var(--muted); font-size: .86rem; }
+
+        .header-actions { display: flex; align-items: center; gap: 8px; }
+        .icon-btn, .ghost-btn, .primary-btn {
+            min-height: 42px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: var(--surface-solid);
+            color: var(--text);
+            transition: .2s ease;
+        }
+
+        .icon-btn {
+            width: 42px;
+            display: grid;
+            place-items: center;
+        }
+
+        .icon-btn:hover, .ghost-btn:hover { border-color: color-mix(in srgb, var(--primary) 50%, var(--border)); }
+        .primary-btn {
+            border-color: transparent;
+            background: var(--primary);
+            color: white;
+            padding: 0 16px;
+            font-weight: 700;
+        }
+        .primary-btn:hover { background: var(--primary-strong); }
+        :root[data-theme="dark"] .primary-btn { color: #08111f; }
+
+        .controls {
+            display: grid;
+            grid-template-columns: minmax(260px, 1.6fr) repeat(3, minmax(150px, .6fr));
+            gap: 12px;
+            padding: 16px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .field { min-width: 0; }
+        .field label {
+            display: block;
+            color: var(--muted);
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            margin: 0 0 7px;
+        }
+
+        .input-wrap { position: relative; }
+        .input-wrap svg {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            width: 18px;
+            height: 18px;
+            color: var(--muted);
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+        input, select {
+            width: 100%;
+            height: 44px;
+            padding: 0 12px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--surface-solid);
+            color: var(--text);
+            outline: none;
+        }
+
+        .input-wrap input { padding-left: 39px; padding-right: 38px; }
+        input:focus, select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 18%, transparent);
+        }
+
+        .clear-search {
+            position: absolute;
+            right: 7px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            border: 0;
+            border-radius: 9px;
+            background: transparent;
+            color: var(--muted);
+            display: none;
+        }
+        .clear-search.visible { display: grid; place-items: center; }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            align-items: center;
+            margin: 18px 2px 12px;
+        }
+
+        .summary { color: var(--muted); font-size: .9rem; }
+        .summary strong { color: var(--text); }
+        .refresh-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--muted);
+            font-size: .85rem;
+            white-space: nowrap;
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--success);
+            box-shadow: 0 0 0 4px color-mix(in srgb, var(--success) 14%, transparent);
+        }
+
+        .camera-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .camera-card {
+            overflow: hidden;
+            background: var(--surface-solid);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: transform .2s ease, border-color .2s ease;
+        }
+
+        .camera-card:hover {
+            transform: translateY(-2px);
+            border-color: color-mix(in srgb, var(--primary) 38%, var(--border));
+        }
+
+        .camera-media {
+            position: relative;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            background: #0b1220;
+        }
+
+        .camera-media img {
+            width: 100%;
             height: 100%;
-            width: 150px;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            animation: loading 1.5s infinite;
+            object-fit: cover;
+            display: block;
+            opacity: 0;
+            transition: opacity .25s ease, transform .35s ease;
         }
 
-        @keyframes loading {
-            0% {
-                left: -150px;
-            }
+        .camera-card:hover .camera-media img.loaded { transform: scale(1.012); }
+        .camera-media img.loaded { opacity: 1; }
 
-            50% {
-                left: 100%;
-            }
+        .skeleton {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(105deg, #172033 24%, #26364d 38%, #172033 52%);
+            background-size: 220% 100%;
+            animation: shimmer 1.35s linear infinite;
+        }
+        @keyframes shimmer { to { background-position-x: -220%; } }
 
-            100% {
-                left: 100%;
-            }
+        .camera-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 4;
+            display: inline-flex;
+            gap: 7px;
+            align-items: center;
+            padding: 6px 9px;
+            border-radius: 999px;
+            background: rgba(2,6,23,.68);
+            color: #fff;
+            font-size: .72rem;
+            font-weight: 700;
+            backdrop-filter: blur(8px);
         }
 
-        .disabled {
-            background-color: #cbd5e0;
-            cursor: not-allowed;
+        .camera-badge .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #f59e0b;
         }
+        .camera-badge.ready .dot { background: #4ade80; }
+        .camera-badge.error .dot { background: #f87171; }
 
-        .countdown {
+        .card-refresh {
             position: absolute;
             top: 10px;
             right: 10px;
-            width: 40px;
+            z-index: 4;
+            width: 36px;
+            height: 36px;
+            border: 1px solid rgba(255,255,255,.18);
+            border-radius: 11px;
+            background: rgba(2,6,23,.62);
+            color: white;
+            display: grid;
+            place-items: center;
+            backdrop-filter: blur(8px);
+        }
+        .card-refresh:hover { background: rgba(2,6,23,.82); }
+
+        .media-error {
+            position: absolute;
+            inset: 0;
+            display: none;
+            place-items: center;
+            padding: 24px;
+            text-align: center;
+            color: #cbd5e1;
+            font-size: .86rem;
+        }
+        .camera-media.is-error .media-error { display: grid; }
+        .camera-media.is-error .skeleton { display: none; }
+
+        .camera-body { padding: 14px 15px 15px; }
+        .camera-title {
+            margin: 0 0 7px;
+            font-size: .95rem;
+            line-height: 1.45;
+            min-height: 2.75em;
+        }
+        .camera-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            color: var(--muted);
+            font-size: .8rem;
+        }
+        .district {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            min-width: 0;
+        }
+        .district svg { width: 15px; height: 15px; flex: 0 0 auto; }
+        .district span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .camera-code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; opacity: .8; }
+
+        .empty-state, .error-state, .initial-loader {
+            grid-column: 1 / -1;
+            min-height: 340px;
+            border: 1px dashed var(--border);
+            border-radius: var(--radius);
+            background: color-mix(in srgb, var(--surface-solid) 76%, transparent);
+            display: grid;
+            place-items: center;
+            padding: 36px;
+            text-align: center;
+            color: var(--muted);
+        }
+
+        .state-icon {
+            width: 52px;
+            height: 52px;
+            margin: 0 auto 12px;
+            display: grid;
+            place-items: center;
+            border-radius: 16px;
+            background: var(--surface-muted);
+            color: var(--primary);
+        }
+        .state-icon svg { width: 26px; height: 26px; }
+        .state-title { margin: 0 0 6px; color: var(--text); font-size: 1rem; font-weight: 800; }
+
+        .pagination-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 22px;
+        }
+
+        .page-btn {
+            min-width: 40px;
             height: 40px;
-            z-index: 2;
+            padding: 0 12px;
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            background: var(--surface-solid);
+            color: var(--text);
+            font-weight: 700;
+        }
+        .page-btn:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); }
+        .page-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+        :root[data-theme="dark"] .page-btn.active { color: #08111f; }
+        .ellipsis { color: var(--muted); padding: 0 2px; }
+
+        .footer-note {
+            text-align: center;
+            color: var(--muted);
+            font-size: .78rem;
+            margin-top: 20px;
         }
 
-        .countdown circle {
-            fill: none;
-            stroke-width: 4;
+        .spin { animation: spin .7s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        @media (max-width: 1050px) {
+            .controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .camera-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         }
 
-        .countdown .bg {
-            stroke: #ccc;
+        @media (max-width: 680px) {
+            .app-shell { width: min(100% - 20px, 1480px); padding-top: 16px; }
+            .topbar { margin: -16px -10px 14px; padding: 12px 10px; }
+            .subtitle { display: none; }
+            .brand-mark { width: 40px; height: 40px; border-radius: 12px; }
+            .controls { grid-template-columns: 1fr; padding: 12px; gap: 10px; }
+            .camera-grid { grid-template-columns: 1fr; gap: 12px; }
+            .summary-row { align-items: flex-start; flex-direction: column; }
+            .camera-title { min-height: auto; }
+            .page-btn { min-width: 38px; height: 38px; }
+            .hide-mobile { display: none; }
         }
 
-        .countdown .progress {
-            stroke: #4caf50;
-            stroke-linecap: round;
-            transition: stroke-dashoffset 1s linear;
-        }
-
-        .countdown text {
-            fill: white;
-            font-size: 10px;
-            text-anchor: middle;
-            dominant-baseline: middle;
-        }
-
-        /* Dark mode styles */
-        body.dark-mode {
-            background-color: #1a202c;
-            color: #cbd5e0;
-        }
-
-        body.dark-mode .bg-gray-100 {
-            background-color: #2d3748;
-        }
-
-        body.dark-mode .bg-white {
-            background-color: #4a5568;
-        }
-
-        body.dark-mode .text-gray-700 {
-            color: #a0aec0;
-        }
-
-        body.dark-mode .bg-blue-500 {
-            background-color: #3182ce;
-        }
-
-        body.dark-mode .bg-gray-200 {
-            background-color: #718096;
-        }
-
-        body.dark-mode .skeleton {
-            background-color: #4a5568;
-        }
-
-        body.dark-mode .countdown .bg {
-            stroke: #718096;
-        }
-
-        body.dark-mode .countdown text {
-            fill: #cbd5e0;
-        }
-
-        /* Dark mode toggle container */
-        .dark-mode-toggle-container {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            z-index: 1000;
-        }
-
-        .dark-mode-toggle-container i {
-            cursor: pointer;
-            font-size: 24px;
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+            html { scroll-behavior: auto; }
         }
     </style>
 </head>
+<body>
+    <main class="app-shell">
+        <header class="topbar">
+            <div class="topbar-inner">
+                <div class="brand">
+                    <div class="brand-mark" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <path d="M4 8.5A2.5 2.5 0 0 1 6.5 6h7A2.5 2.5 0 0 1 16 8.5v7a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 4 15.5z"/>
+                            <path d="m16 10 3.1-1.7a.6.6 0 0 1 .9.53v6.34a.6.6 0 0 1-.9.53L16 14"/>
+                            <circle cx="10" cy="12" r="2.4"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1>Camera giao thông TP.HCM</h1>
+                        <p class="subtitle">Theo dõi nhanh tình hình giao thông theo từng khu vực</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button id="refreshNow" class="icon-btn" type="button" title="Làm mới camera" aria-label="Làm mới camera">
+                        <svg id="refreshIcon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 11a8 8 0 1 0 2 5.3"/><path d="M20 4v7h-7"/>
+                        </svg>
+                    </button>
+                    <button id="themeToggle" class="icon-btn" type="button" title="Đổi giao diện" aria-label="Đổi giao diện"></button>
+                </div>
+            </div>
+        </header>
 
-<body class="bg-gray-100 overflow-auto">
-    <div class="flex justify-center mt-4">
-        <label for="itemsPerPage" class="mr-2">Số lượng camera hiển thị:</label>
-        <select id="itemsPerPage" class="bg-white border border-gray-300 rounded px-2 py-1">
-            <option value="3">3</option>
-            <option value="6">6</option>
-            <option value="9" selected>9</option>
-            <option value="12">12</option>
-            <option value="15">15</option>
-            <option value="20">20</option>
-            <option value="30">30</option>
-        </select>
-    </div>
-    <div class="dark-mode-toggle-container">
-        <i id="darkModeToggle" class="fas fa-moon"></i>
-    </div>
-    <div id="cameraImages" class="p-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3"></div>
-    <div class="flex justify-center mt-4">
-        <button id="prevPage" class="bg-blue-500 text-white px-4 py-2 rounded mr-2">Trước</button>
-        <span id="pageInfo" class="text-gray-700 px-4 py-2"></span>
-        <button id="nextPage" class="bg-blue-500 text-white px-4 py-2 rounded">Sau</button>
-    </div>
-    <div id="pagination" class="flex justify-center mt-4 mb-4"></div>
+        <section class="controls" aria-label="Bộ lọc camera">
+            <div class="field">
+                <label for="searchInput">Tìm camera</label>
+                <div class="input-wrap">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/>
+                    </svg>
+                    <input id="searchInput" type="search" placeholder="Tên đường, giao lộ, quận..." autocomplete="off">
+                    <button id="clearSearch" class="clear-search" type="button" aria-label="Xóa tìm kiếm">×</button>
+                </div>
+            </div>
+            <div class="field">
+                <label for="districtFilter">Khu vực</label>
+                <select id="districtFilter"><option value="">Tất cả khu vực</option></select>
+            </div>
+            <div class="field">
+                <label for="itemsPerPage">Camera / trang</label>
+                <select id="itemsPerPage">
+                    <option value="6">6</option>
+                    <option value="9">9</option>
+                    <option value="12">12</option>
+                    <option value="18">18</option>
+                    <option value="24">24</option>
+                </select>
+            </div>
+            <div class="field">
+                <label for="refreshInterval">Tự làm mới</label>
+                <select id="refreshInterval">
+                    <option value="5">5 giây</option>
+                    <option value="10">10 giây</option>
+                    <option value="15">15 giây</option>
+                    <option value="30">30 giây</option>
+                    <option value="0">Tắt</option>
+                </select>
+            </div>
+        </section>
+
+        <div class="summary-row">
+            <div id="summary" class="summary">Đang tải dữ liệu camera…</div>
+            <div id="refreshStatus" class="refresh-status" aria-live="polite">
+                <span class="status-dot"></span>
+                <span id="refreshStatusText">Đang khởi tạo</span>
+            </div>
+        </div>
+
+        <section id="cameraGrid" class="camera-grid" aria-live="polite">
+            <div class="initial-loader">
+                <div>
+                    <div class="state-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <path d="M4 8.5A2.5 2.5 0 0 1 6.5 6h7A2.5 2.5 0 0 1 16 8.5v7a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 4 15.5z"/>
+                            <path d="m16 10 3.1-1.7a.6.6 0 0 1 .9.53v6.34a.6.6 0 0 1-.9.53L16 14"/>
+                        </svg>
+                    </div>
+                    <p class="state-title">Đang tải danh sách camera</p>
+                    <div>Vui lòng chờ trong giây lát.</div>
+                </div>
+            </div>
+        </section>
+
+        <nav id="pagination" class="pagination-wrap" aria-label="Phân trang camera"></nav>
+        <p class="footer-note">Nguồn hình ảnh: Cổng thông tin giao thông TP.HCM · ePlus.DEV</p>
+    </main>
+
     <script>
-        document.getElementById('darkModeToggle').addEventListener('click', () => {
-            const body = document.body;
-            const icon = document.getElementById('darkModeToggle');
-            body.classList.toggle('dark-mode');
-            if (body.classList.contains('dark-mode')) {
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
-            } else {
-                icon.classList.remove('fa-sun');
-                icon.classList.add('fa-moon');
+        (() => {
+            'use strict';
+
+            const STORAGE = {
+                theme: 'camera.theme',
+                perPage: 'camera.perPage',
+                refresh: 'camera.refreshSeconds'
+            };
+
+            const els = {
+                grid: document.getElementById('cameraGrid'),
+                pagination: document.getElementById('pagination'),
+                summary: document.getElementById('summary'),
+                search: document.getElementById('searchInput'),
+                clearSearch: document.getElementById('clearSearch'),
+                district: document.getElementById('districtFilter'),
+                perPage: document.getElementById('itemsPerPage'),
+                refreshInterval: document.getElementById('refreshInterval'),
+                refreshNow: document.getElementById('refreshNow'),
+                refreshIcon: document.getElementById('refreshIcon'),
+                refreshStatusText: document.getElementById('refreshStatusText'),
+                themeToggle: document.getElementById('themeToggle')
+            };
+
+            const state = {
+                cameras: [],
+                filtered: [],
+                page: getPageFromUrl(),
+                perPage: safeNumber(localStorage.getItem(STORAGE.perPage), 9, [6, 9, 12, 18, 24]),
+                refreshSeconds: safeNumber(localStorage.getItem(STORAGE.refresh), 10, [0, 5, 10, 15, 30]),
+                remaining: 10,
+                search: '',
+                district: ''
+            };
+
+            function safeNumber(value, fallback, allowed) {
+                const number = Number(value);
+                return allowed.includes(number) ? number : fallback;
             }
-        });
 
-        fetch('data-camera.json')
-            .then(response => response.json())
-            .then(data => {
-                const cameras = data;
+            function getPageFromUrl() {
+                const page = Number(new URLSearchParams(window.location.search).get('page'));
+                return Number.isInteger(page) && page > 0 ? page : 1;
+            }
 
-                if (!cameras) {
-                    throw new Error('cameras is undefined');
+            function setPageInUrl(page, replace = false) {
+                const url = new URL(window.location.href);
+                url.searchParams.set('page', String(page));
+                history[replace ? 'replaceState' : 'pushState']({}, '', url);
+            }
+
+            function normalize(value) {
+                return String(value || '')
+                    .normalize('NFD')
+                    .replace(/[\u0300-\u036f]/g, '')
+                    .toLowerCase()
+                    .trim();
+            }
+
+            function getDistrict(camera) {
+                return camera.Disctrict || camera.District || 'Chưa xác định';
+            }
+
+            function setTheme(theme) {
+                document.documentElement.dataset.theme = theme;
+                localStorage.setItem(STORAGE.theme, theme);
+                els.themeToggle.innerHTML = theme === 'dark'
+                    ? '<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>'
+                    : '<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.5 15.1A8.5 8.5 0 0 1 8.9 3.5 8.5 8.5 0 1 0 20.5 15.1Z"/></svg>';
+            }
+
+            function initTheme() {
+                const saved = localStorage.getItem(STORAGE.theme);
+                const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                setTheme(saved || (systemDark ? 'dark' : 'light'));
+            }
+
+            function populateDistricts() {
+                const districts = [...new Set(state.cameras.map(getDistrict))]
+                    .filter(Boolean)
+                    .sort((a, b) => a.localeCompare(b, 'vi'));
+
+                districts.forEach(district => {
+                    const option = document.createElement('option');
+                    option.value = district;
+                    option.textContent = district;
+                    els.district.appendChild(option);
+                });
+            }
+
+            function applyFilters({ resetPage = true } = {}) {
+                const query = normalize(state.search);
+                state.filtered = state.cameras.filter(camera => {
+                    const district = getDistrict(camera);
+                    const matchesDistrict = !state.district || district === state.district;
+                    const haystack = normalize(camera.CamName + ' ' + district);
+                    return matchesDistrict && (!query || haystack.includes(query));
+                });
+
+                if (resetPage) state.page = 1;
+                render();
+            }
+
+            function clampPage() {
+                const totalPages = Math.max(1, Math.ceil(state.filtered.length / state.perPage));
+                const clamped = Math.min(Math.max(1, state.page), totalPages);
+                if (clamped !== state.page) {
+                    state.page = clamped;
+                    setPageInUrl(clamped, true);
+                }
+                return totalPages;
+            }
+
+            function cameraImageUrl(id) {
+                return 'proxy.php?id=' + encodeURIComponent(id) + '&t=' + Date.now();
+            }
+
+            function setCardImage(card, camera) {
+                const media = card.querySelector('.camera-media');
+                const image = card.querySelector('img');
+                const skeleton = card.querySelector('.skeleton');
+                const badge = card.querySelector('.camera-badge');
+                const badgeText = badge.querySelector('.badge-text');
+
+                media.classList.remove('is-error');
+                image.classList.remove('loaded');
+                skeleton.hidden = false;
+                badge.classList.remove('ready', 'error');
+                badgeText.textContent = 'Đang tải';
+
+                image.onload = () => {
+                    skeleton.hidden = true;
+                    image.classList.add('loaded');
+                    badge.classList.add('ready');
+                    badgeText.textContent = 'Trực tuyến';
+                };
+
+                image.onerror = () => {
+                    skeleton.hidden = true;
+                    media.classList.add('is-error');
+                    badge.classList.add('error');
+                    badgeText.textContent = 'Không tải được';
+                };
+
+                image.src = cameraImageUrl(camera.CamId);
+            }
+
+            function createCameraCard(camera) {
+                const card = document.createElement('article');
+                card.className = 'camera-card';
+                card.dataset.cameraId = camera.CamId;
+
+                const media = document.createElement('div');
+                media.className = 'camera-media';
+
+                const skeleton = document.createElement('div');
+                skeleton.className = 'skeleton';
+                media.appendChild(skeleton);
+
+                const image = document.createElement('img');
+                image.alt = 'Camera ' + camera.CamName;
+                image.loading = 'eager';
+                image.decoding = 'async';
+                media.appendChild(image);
+
+                const badge = document.createElement('div');
+                badge.className = 'camera-badge';
+                const dot = document.createElement('span');
+                dot.className = 'dot';
+                const badgeText = document.createElement('span');
+                badgeText.className = 'badge-text';
+                badgeText.textContent = 'Đang tải';
+                badge.append(dot, badgeText);
+                media.appendChild(badge);
+
+                const refreshButton = document.createElement('button');
+                refreshButton.type = 'button';
+                refreshButton.className = 'card-refresh';
+                refreshButton.title = 'Làm mới camera này';
+                refreshButton.setAttribute('aria-label', 'Làm mới ' + camera.CamName);
+                refreshButton.innerHTML = '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 11a8 8 0 1 0 2 5.3"/><path d="M20 4v7h-7"/></svg>';
+                refreshButton.addEventListener('click', () => setCardImage(card, camera));
+                media.appendChild(refreshButton);
+
+                const error = document.createElement('div');
+                error.className = 'media-error';
+                error.innerHTML = '<div><strong>Không thể tải hình ảnh</strong><br><span>Camera có thể đang tạm ngưng hoặc nguồn dữ liệu chưa phản hồi.</span></div>';
+                media.appendChild(error);
+
+                const body = document.createElement('div');
+                body.className = 'camera-body';
+
+                const title = document.createElement('h2');
+                title.className = 'camera-title';
+                title.textContent = camera.CamName || 'Camera không tên';
+
+                const meta = document.createElement('div');
+                meta.className = 'camera-meta';
+
+                const district = document.createElement('span');
+                district.className = 'district';
+                district.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>';
+                const districtText = document.createElement('span');
+                districtText.textContent = getDistrict(camera);
+                district.appendChild(districtText);
+
+                const code = document.createElement('span');
+                code.className = 'camera-code';
+                code.textContent = camera.CamId.slice(-6).toUpperCase();
+                code.title = camera.CamId;
+
+                meta.append(district, code);
+                body.append(title, meta);
+                card.append(media, body);
+
+                requestAnimationFrame(() => setCardImage(card, camera));
+                return card;
+            }
+
+            function renderEmpty() {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'empty-state';
+                wrapper.innerHTML = '<div><div class="state-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg></div><p class="state-title">Không tìm thấy camera phù hợp</p><div>Thử đổi từ khóa hoặc chọn lại khu vực.</div></div>';
+                els.grid.appendChild(wrapper);
+            }
+
+            function renderPagination(totalPages) {
+                els.pagination.innerHTML = '';
+                if (state.filtered.length === 0 || totalPages <= 1) return;
+
+                const addButton = (label, page, options = {}) => {
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.className = 'page-btn' + (options.active ? ' active' : '');
+                    button.textContent = label;
+                    button.disabled = Boolean(options.disabled);
+                    button.setAttribute('aria-label', options.ariaLabel || ('Trang ' + page));
+                    if (options.active) button.setAttribute('aria-current', 'page');
+                    button.addEventListener('click', () => goToPage(page));
+                    els.pagination.appendChild(button);
+                };
+
+                addButton('‹', state.page - 1, { disabled: state.page === 1, ariaLabel: 'Trang trước' });
+
+                const pages = [];
+                if (totalPages <= 7) {
+                    for (let i = 1; i <= totalPages; i++) pages.push(i);
+                } else {
+                    pages.push(1);
+                    const start = Math.max(2, state.page - 1);
+                    const end = Math.min(totalPages - 1, state.page + 1);
+                    if (start > 2) pages.push('…');
+                    for (let i = start; i <= end; i++) pages.push(i);
+                    if (end < totalPages - 1) pages.push('…');
+                    pages.push(totalPages);
                 }
 
-                const refreshInterval = 3000; // 3000 ms = 3 seconds
-
-                function getPageFromUrl() {
-                    const urlParams = new URLSearchParams(window.location.search);
-                    return parseInt(urlParams.get('page')) || 1;
-                }
-
-                function updateUrl(page) {
-                    const url = new URL(window.location);
-                    url.searchParams.set('page', page);
-                    window.history.pushState({}, '', url);
-                }
-
-                let currentPage = getPageFromUrl();
-                let itemsPerPage = parseInt(document.getElementById('itemsPerPage').value);
-
-                function renderImages(page) {
-                    const container = document.getElementById('cameraImages');
-                    container.innerHTML = ''; // Clear the container before rendering new images
-
-                    const startIndex = (page - 1) * itemsPerPage;
-                    const endIndex = Math.min(startIndex + itemsPerPage, cameras.length);
-
-                    for (let i = startIndex; i < endIndex; i++) {
-                        const camera = cameras[i];
-                        const imgContainer = document.createElement('div');
-                        imgContainer.className = "relative"; // Removed the overlay class
-
-                        const skeleton = document.createElement('div');
-                        skeleton.className = "skeleton";
-                        imgContainer.appendChild(skeleton);
-
-                        const img = document.createElement('img');
-                        img.dataset.index = i;
-                        img.alt = `Camera Image ${i + 1}`;
-                        img.className = "w-full h-auto rounded shadow hidden";
-                        img.src = `proxy.php?url=https://giaothong.hochiminhcity.gov.vn:8007/Render/CameraHandler.ashx?id=${camera.CamId}&${new Date().getTime()}`; // Adding timestamp to avoid caching
-                        img.onload = () => {
-                            skeleton.remove(); // Remove the skeleton loader
-                            img.classList.remove('hidden'); // Show the image
-                        };
-                        imgContainer.appendChild(img);
-
-                        const nameDiv = document.createElement('div');
-                        nameDiv.className = "absolute bottom-0 left-0 bg-black bg-opacity-50 text-white text-xs p-1 opacity-0 hover:opacity-100 transition-opacity duration-300";
-                        nameDiv.textContent = camera.CamName;
-                        imgContainer.appendChild(nameDiv);
-
-                        const countdownDiv = document.createElement('div');
-                        countdownDiv.className = "countdown";
-                        countdownDiv.innerHTML = `
-                            <svg width="40" height="40">
-                                <circle class="bg" cx="20" cy="20" r="18"></circle>
-                                <circle class="progress" cx="20" cy="20" r="18" stroke-dasharray="113" stroke-dashoffset="113"></circle>
-                                <text x="20" y="20">3s</text>
-                            </svg>
-                        `;
-                        imgContainer.appendChild(countdownDiv);
-
-                        container.appendChild(imgContainer);
-
-                        startCountdown(countdownDiv, refreshInterval / 1000); // Start countdown based on refresh interval
-                    }
-
-                    // Update page info
-                    const totalPages = Math.ceil(cameras.length / itemsPerPage);
-                    document.getElementById('pageInfo').textContent = `Trang ${currentPage} / ${totalPages}`;
-                    renderPagination(totalPages);
-                    updateButtonStates(totalPages);
-                }
-
-                function startCountdown(element, seconds) {
-                    let remainingTime = seconds;
-                    const progressCircle = element.querySelector('.progress');
-                    const textElement = element.querySelector('text');
-                    const circumference = 2 * Math.PI * 18;
-                    progressCircle.style.strokeDasharray = `${circumference}`;
-                    progressCircle.style.strokeDashoffset = `${circumference}`;
-
-                    const interval = setInterval(() => {
-                        remainingTime--;
-                        const progress = ((seconds - remainingTime) / seconds) * circumference;
-                        progressCircle.style.strokeDashoffset = `${circumference - progress}`;
-                        textElement.textContent = `${remainingTime}s`;
-
-                        if (remainingTime <= 0) {
-                            clearInterval(interval);
-                        }
-                    }, 1000);
-                }
-
-                function renderPagination(totalPages) {
-                    const paginationContainer = document.getElementById('pagination');
-                    paginationContainer.innerHTML = ''; // Clear the pagination container
-
-                    function createPageButton(page) {
-                        const pageButton = document.createElement('button');
-                        pageButton.textContent = page;
-                        pageButton.className = `px-3 py-1 mx-1 rounded ${page === currentPage ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700'}`;
-                        pageButton.addEventListener('click', () => {
-                            currentPage = page;
-                            updateUrl(currentPage);
-                            renderImages(currentPage);
-                        });
-                        paginationContainer.appendChild(pageButton);
-                    }
-
-                    if (totalPages <= 7) {
-                        for (let i = 1; i <= totalPages; i++) {
-                            createPageButton(i);
-                        }
+                pages.forEach(page => {
+                    if (page === '…') {
+                        const span = document.createElement('span');
+                        span.className = 'ellipsis';
+                        span.textContent = '…';
+                        els.pagination.appendChild(span);
                     } else {
-                        createPageButton(1);
-                        if (currentPage > 4) {
-                            const ellipsis = document.createElement('span');
-                            ellipsis.textContent = '...';
-                            paginationContainer.appendChild(ellipsis);
-                        }
-
-                        const startPage = Math.max(2, currentPage - 2);
-                        const endPage = Math.min(totalPages - 1, currentPage + 2);
-
-                        for (let i = startPage; i <= endPage; i++) {
-                            createPageButton(i);
-                        }
-
-                        if (currentPage < totalPages - 3) {
-                            const ellipsis = document.createElement('span');
-                            ellipsis.textContent = '...';
-                            paginationContainer.appendChild(ellipsis);
-                        }
-                        createPageButton(totalPages);
-                    }
-                }
-
-                function refreshImages() {
-                    const images = document.querySelectorAll('#cameraImages img');
-                    images.forEach(img => {
-                        const camera = cameras[img.dataset.index];
-                        img.src = `proxy.php?url=https://giaothong.hochiminhcity.gov.vn:8007/Render/CameraHandler.ashx&id=${camera.CamId}&${new Date().getTime()}`; // Adding timestamp to avoid caching
-                    });
-
-                    const countdowns = document.querySelectorAll('.countdown');
-                    countdowns.forEach(countdown => {
-                        startCountdown(countdown, refreshInterval / 1000); // Restart countdown based on refresh interval
-                    });
-                }
-
-                function updateButtonStates(totalPages) {
-                    const prevButton = document.getElementById('prevPage');
-                    const nextButton = document.getElementById('nextPage');
-
-                    if (currentPage === 1) {
-                        prevButton.classList.add('disabled');
-                        prevButton.disabled = true;
-                    } else {
-                        prevButton.classList.remove('disabled');
-                        prevButton.disabled = false;
-                    }
-
-                    if (currentPage === totalPages) {
-                        nextButton.classList.add('disabled');
-                        nextButton.disabled = true;
-                    } else {
-                        nextButton.classList.remove('disabled');
-                        nextButton.disabled = false;
-                    }
-                }
-
-                // Initial call to display the first page of images immediately on page load
-                renderImages(currentPage);
-
-                // Event listeners for pagination buttons
-                document.getElementById('prevPage').addEventListener('click', () => {
-                    if (currentPage > 1) {
-                        currentPage--;
-                        updateUrl(currentPage);
-                        renderImages(currentPage);
+                        addButton(String(page), page, { active: page === state.page });
                     }
                 });
 
-                document.getElementById('nextPage').addEventListener('click', () => {
-                    const totalPages = Math.ceil(cameras.length / itemsPerPage);
-                    if (currentPage < totalPages) {
-                        currentPage++;
-                        updateUrl(currentPage);
-                        renderImages(currentPage);
+                addButton('›', state.page + 1, { disabled: state.page === totalPages, ariaLabel: 'Trang sau' });
+            }
+
+            function render() {
+                const totalPages = clampPage();
+                const start = (state.page - 1) * state.perPage;
+                const pageItems = state.filtered.slice(start, start + state.perPage);
+
+                els.grid.innerHTML = '';
+                if (pageItems.length === 0) {
+                    renderEmpty();
+                } else {
+                    const fragment = document.createDocumentFragment();
+                    pageItems.forEach(camera => fragment.appendChild(createCameraCard(camera)));
+                    els.grid.appendChild(fragment);
+                }
+
+                const shownStart = state.filtered.length ? start + 1 : 0;
+                const shownEnd = Math.min(start + state.perPage, state.filtered.length);
+                els.summary.innerHTML = '<strong>' + state.filtered.length + '</strong> / ' + state.cameras.length + ' camera · hiển thị <strong>' + shownStart + '–' + shownEnd + '</strong>';
+                renderPagination(totalPages);
+                resetRefreshTimer();
+            }
+
+            function goToPage(page, push = true) {
+                const totalPages = Math.max(1, Math.ceil(state.filtered.length / state.perPage));
+                const nextPage = Math.min(Math.max(1, page), totalPages);
+                if (nextPage === state.page && push) return;
+                state.page = nextPage;
+                setPageInUrl(state.page, !push);
+                render();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            function refreshVisible() {
+                if (document.hidden) return;
+                const cards = [...els.grid.querySelectorAll('.camera-card')];
+                if (!cards.length) return;
+
+                els.refreshIcon.classList.add('spin');
+                cards.forEach(card => {
+                    const camera = state.cameras.find(item => item.CamId === card.dataset.cameraId);
+                    if (camera) setCardImage(card, camera);
+                });
+                window.setTimeout(() => els.refreshIcon.classList.remove('spin'), 650);
+                resetRefreshTimer();
+            }
+
+            function resetRefreshTimer() {
+                state.remaining = state.refreshSeconds;
+                updateRefreshStatus();
+            }
+
+            function updateRefreshStatus() {
+                if (state.refreshSeconds === 0) {
+                    els.refreshStatusText.textContent = 'Tự làm mới đã tắt';
+                } else if (document.hidden) {
+                    els.refreshStatusText.textContent = 'Tạm dừng khi tab ẩn';
+                } else {
+                    els.refreshStatusText.textContent = 'Làm mới sau ' + state.remaining + ' giây';
+                }
+            }
+
+            function tickRefresh() {
+                if (state.refreshSeconds === 0 || document.hidden || !state.cameras.length) {
+                    updateRefreshStatus();
+                    return;
+                }
+
+                state.remaining -= 1;
+                if (state.remaining <= 0) {
+                    refreshVisible();
+                } else {
+                    updateRefreshStatus();
+                }
+            }
+
+            function showLoadError(error) {
+                console.error(error);
+                els.grid.innerHTML = '<div class="error-state"><div><div class="state-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.8 2.5 17.2A2 2 0 0 0 4.2 20h15.6a2 2 0 0 0 1.7-2.8L13.7 3.8a2 2 0 0 0-3.4 0Z"/></svg></div><p class="state-title">Không thể tải dữ liệu camera</p><div>Hãy kiểm tra kết nối và thử tải lại trang.</div></div></div>';
+                els.summary.textContent = 'Không có dữ liệu';
+                els.refreshStatusText.textContent = 'Lỗi tải dữ liệu';
+            }
+
+            async function loadCameras() {
+                try {
+                    const response = await fetch('data-camera.json', { cache: 'no-store' });
+                    if (!response.ok) throw new Error('Camera data HTTP ' + response.status);
+                    const data = await response.json();
+                    if (!Array.isArray(data)) throw new Error('Camera data is not an array');
+
+                    state.cameras = data.filter(camera => camera && camera.CamId && camera.CamName);
+                    state.filtered = [...state.cameras];
+                    populateDistricts();
+                    applyFilters({ resetPage: false });
+                } catch (error) {
+                    showLoadError(error);
+                }
+            }
+
+            function bindEvents() {
+                let searchTimer;
+                els.search.addEventListener('input', () => {
+                    state.search = els.search.value;
+                    els.clearSearch.classList.toggle('visible', Boolean(state.search));
+                    clearTimeout(searchTimer);
+                    searchTimer = setTimeout(() => applyFilters(), 120);
+                });
+
+                els.clearSearch.addEventListener('click', () => {
+                    els.search.value = '';
+                    state.search = '';
+                    els.clearSearch.classList.remove('visible');
+                    applyFilters();
+                    els.search.focus();
+                });
+
+                els.district.addEventListener('change', () => {
+                    state.district = els.district.value;
+                    applyFilters();
+                });
+
+                els.perPage.addEventListener('change', () => {
+                    state.perPage = Number(els.perPage.value);
+                    localStorage.setItem(STORAGE.perPage, String(state.perPage));
+                    state.page = 1;
+                    setPageInUrl(1);
+                    render();
+                });
+
+                els.refreshInterval.addEventListener('change', () => {
+                    state.refreshSeconds = Number(els.refreshInterval.value);
+                    localStorage.setItem(STORAGE.refresh, String(state.refreshSeconds));
+                    resetRefreshTimer();
+                });
+
+                els.refreshNow.addEventListener('click', refreshVisible);
+
+                els.themeToggle.addEventListener('click', () => {
+                    const current = document.documentElement.dataset.theme;
+                    setTheme(current === 'dark' ? 'light' : 'dark');
+                });
+
+                window.addEventListener('popstate', () => {
+                    state.page = getPageFromUrl();
+                    render();
+                });
+
+                document.addEventListener('visibilitychange', () => {
+                    if (!document.hidden && state.cameras.length) {
+                        refreshVisible();
+                    } else {
+                        updateRefreshStatus();
                     }
                 });
+            }
 
-                // Event listener for items per page dropdown
-                document.getElementById('itemsPerPage').addEventListener('change', (event) => {
-                    itemsPerPage = parseInt(event.target.value);
-                    currentPage = 1; // Reset to first page
-                    updateUrl(currentPage);
-                    renderImages(currentPage);
-                });
-
-                // Refresh images every interval
-                setInterval(refreshImages, refreshInterval);
-            })
-            .catch(error => console.error('Error fetching camera data:', error));
+            initTheme();
+            els.perPage.value = String(state.perPage);
+            els.refreshInterval.value = String(state.refreshSeconds);
+            state.remaining = state.refreshSeconds;
+            bindEvents();
+            window.setInterval(tickRefresh, 1000);
+            loadCameras();
+        })();
     </script>
 </body>
-
 </html>
