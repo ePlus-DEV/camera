@@ -1,6 +1,9 @@
 name: Camera health status
 
 on:
+  push:
+    branches:
+      - feat/camera-health-status
   workflow_dispatch:
   schedule:
     - cron: "*/15 * * * *"
