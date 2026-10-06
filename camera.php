@@ -50,24 +50,13 @@ if (!$camera) {
     $canonical = BASE_URL . '/';
     $cameraName = 'Không tìm thấy camera';
     $district = 'TP.HCM';
-    $address = '';
-    $ward = '';
-    $province = 'Hồ Chí Minh';
-    $latitude = null;
-    $longitude = null;
     $imageUrl = '';
     $related = [];
 } else {
     $cameraName = trim((string) $camera['CamName']);
     $district = cameraDistrict($camera);
-    $address = trim((string) ($camera['Address'] ?? ''));
-    $ward = trim((string) ($camera['Ward'] ?? ''));
-    $province = trim((string) ($camera['Province'] ?? 'Hồ Chí Minh'));
-    $latitude = isset($camera['Latitude']) && is_numeric($camera['Latitude']) ? (float) $camera['Latitude'] : null;
-    $longitude = isset($camera['Longitude']) && is_numeric($camera['Longitude']) ? (float) $camera['Longitude'] : null;
-    $locationText = $address !== '' ? $address : $district . ', TP.HCM';
     $pageTitle = 'Camera ' . $cameraName . ' – ' . $district . ' | TP.HCM';
-    $pageDescription = 'Xem camera giao thông ' . $cameraName . ' tại ' . $locationText . '. Hình ảnh camera được cập nhật tự động để tiện theo dõi tình hình giao thông.';
+    $pageDescription = 'Xem camera giao thông ' . $cameraName . ' tại ' . $district . ', TP.HCM. Hình ảnh camera được cập nhật tự động để tiện theo dõi tình hình giao thông.';
     $canonical = BASE_URL . '/camera.php?id=' . rawurlencode($cameraId);
     $imageUrl = BASE_URL . '/proxy.php?id=' . rawurlencode($cameraId);
 
@@ -95,20 +84,12 @@ $schema = $camera ? [
     'about' => [
         '@type' => 'Place',
         'name' => $cameraName,
-        'address' => array_filter([
+        'address' => [
             '@type' => 'PostalAddress',
-            'streetAddress' => $address,
-            'addressLocality' => $ward !== '' ? $ward : $district,
-            'addressRegion' => $province,
+            'addressLocality' => 'Hồ Chí Minh',
+            'addressRegion' => $district,
             'addressCountry' => 'VN',
-        ], static fn ($value): bool => $value !== ''),
-        ...($latitude !== null && $longitude !== null ? [
-            'geo' => [
-                '@type' => 'GeoCoordinates',
-                'latitude' => $latitude,
-                'longitude' => $longitude,
-            ],
-        ] : []),
+        ],
     ],
     'primaryImageOfPage' => [
         '@type' => 'ImageObject',
@@ -243,12 +224,6 @@ $schema = $camera ? [
         .content { padding: clamp(18px, 4vw, 30px); }
         .eyebrow { color: var(--primary); font-size: .78rem; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; }
         h1 { margin: 7px 0 10px; font-size: clamp(1.45rem, 4vw, 2.15rem); line-height: 1.25; }
-        .address-line {
-            margin: -4px 0 18px;
-            color: var(--muted);
-            line-height: 1.6;
-        }
-        .address-line strong { color: var(--text); }
         .lead { margin: 0; color: var(--muted); line-height: 1.7; }
         .meta {
             display: flex;
@@ -322,9 +297,6 @@ $schema = $camera ? [
             <div class="eyebrow">Camera giao thông TP.HCM</div>
             <h1><?= h($cameraName) ?></h1>
             <p class="lead"><?= h($pageDescription) ?></p>
-<?php if ($address !== ''): ?>
-            <p class="address-line"><strong>Địa chỉ:</strong> <?= h($address) ?></p>
-<?php endif; ?>
             <div class="meta">
                 <span class="pill"><?= h($district) ?></span>
                 <span class="pill">Mã camera: <?= h(strtoupper(substr($cameraId, -6))) ?></span>
