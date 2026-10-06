@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /vendor/
+
+Sitemap: https://camera-hcm.eplus.dev/sitemap.xml
