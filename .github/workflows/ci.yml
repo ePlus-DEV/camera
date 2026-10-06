@@ -21,6 +21,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Validate camera sync script
+        run: node --check scripts/sync-cameras.mjs
+
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
