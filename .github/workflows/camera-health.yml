@@ -1,10 +1,6 @@
 name: Camera health status
-# Second validation run for consecutive-failure classification
 
 on:
-  push:
-    branches:
-      - feat/camera-health-status
   workflow_dispatch:
   schedule:
     - cron: "*/15 * * * *"
