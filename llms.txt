@@ -1,0 +1,26 @@
+# Camera giao thông TP.HCM
+
+> Public traffic-camera viewer for Ho Chi Minh City, maintained by ePlus.DEV.
+
+Canonical site: https://camera-hcm.eplus.dev/
+Language: Vietnamese (vi-VN)
+
+## Primary resources
+
+- Homepage and searchable camera directory: https://camera-hcm.eplus.dev/
+- Sitemap index: https://camera-hcm.eplus.dev/sitemap.xml
+- Dynamic camera sitemap: https://camera-hcm.eplus.dev/sitemap.php
+- Machine-readable camera catalog: https://camera-hcm.eplus.dev/data-camera.json
+- Agent guidance: https://camera-hcm.eplus.dev/agents.md
+
+## Camera pages
+
+Each camera has a canonical server-rendered detail page:
+
+https://camera-hcm.eplus.dev/camera.php?id={CamId}
+
+Camera IDs are 24-character hexadecimal identifiers.
+
+## Data notes
+
+Camera availability and images depend on the public upstream traffic-camera source. Images may be temporarily unavailable. Do not interpret a missing image as proof that a road or camera no longer exists.

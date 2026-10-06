@@ -5,8 +5,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#0f172a">
-    <meta name="description" content="Theo dõi camera giao thông TP.HCM theo thời gian thực.">
-    <title>Camera giao thông TP.HCM</title>
+    <meta name="description" content="Xem camera giao thông TP.HCM trực tuyến theo khu vực, tìm nhanh tuyến đường và theo dõi hình ảnh giao thông được cập nhật tự động.">
+    <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+    <meta name="application-name" content="Camera giao thông TP.HCM">
+    <link rel="canonical" href="https://camera-hcm.eplus.dev/">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="vi_VN">
+    <meta property="og:site_name" content="Camera giao thông TP.HCM">
+    <meta property="og:title" content="Camera giao thông TP.HCM trực tuyến">
+    <meta property="og:description" content="Tìm và xem camera giao thông TP.HCM theo khu vực, cập nhật hình ảnh tự động.">
+    <meta property="og:url" content="https://camera-hcm.eplus.dev/">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Camera giao thông TP.HCM trực tuyến">
+    <meta name="twitter:description" content="Tìm và xem camera giao thông TP.HCM theo khu vực, cập nhật hình ảnh tự động.">
+    <title>Camera giao thông TP.HCM trực tuyến | ePlus.DEV</title>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Camera giao thông TP.HCM",
+        "url": "https://camera-hcm.eplus.dev/",
+        "description": "Ứng dụng web tra cứu và theo dõi camera giao thông TP.HCM theo khu vực.",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any",
+        "inLanguage": "vi-VN",
+        "isAccessibleForFree": true,
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "VND"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "ePlus.DEV",
+            "url": "https://eplus.dev/"
+        }
+    }
+    </script>
     <style>
         :root {
             color-scheme: light;
@@ -357,6 +394,73 @@
         .district span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .camera-code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; opacity: .8; }
 
+        .card-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+        }
+
+        .detail-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            color: var(--primary);
+            font-size: .82rem;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .detail-link:hover { text-decoration: underline; }
+        .detail-link svg { width: 15px; height: 15px; }
+
+        .seo-content {
+            margin-top: 24px;
+            padding: 22px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--surface);
+            box-shadow: var(--shadow);
+        }
+
+        .seo-content h2 {
+            margin: 0 0 10px;
+            font-size: clamp(1.15rem, 2vw, 1.45rem);
+        }
+
+        .seo-content p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.75;
+        }
+
+        .seo-points {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .seo-point {
+            padding: 14px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: var(--surface-solid);
+        }
+
+        .seo-point strong {
+            display: block;
+            margin-bottom: 5px;
+            font-size: .9rem;
+        }
+
+        .seo-point span {
+            color: var(--muted);
+            font-size: .82rem;
+            line-height: 1.55;
+        }
+
         .empty-state, .error-state, .initial-loader {
             grid-column: 1 / -1;
             min-height: 340px;
@@ -435,6 +539,8 @@
             .camera-grid { grid-template-columns: 1fr; gap: 12px; }
             .summary-row { align-items: flex-start; flex-direction: column; }
             .camera-title { min-height: auto; }
+            .seo-content { padding: 16px; }
+            .seo-points { grid-template-columns: 1fr; }
             .page-btn { min-width: 38px; height: 38px; }
             .hide-mobile { display: none; }
         }
@@ -534,6 +640,29 @@
         </section>
 
         <nav id="pagination" class="pagination-wrap" aria-label="Phân trang camera"></nav>
+
+        <section class="seo-content" aria-labelledby="aboutCameraViewer">
+            <h2 id="aboutCameraViewer">Camera giao thông TP.HCM trực tuyến</h2>
+            <p>
+                Công cụ giúp tra cứu nhanh camera giao thông tại TP.HCM theo tên đường, giao lộ và khu vực.
+                Mỗi camera có trang chi tiết riêng để bạn có thể mở, chia sẻ và quay lại đúng vị trí cần theo dõi.
+            </p>
+            <div class="seo-points">
+                <div class="seo-point">
+                    <strong>Tìm theo tuyến đường</strong>
+                    <span>Nhập tên đường hoặc giao lộ để lọc nhanh camera phù hợp.</span>
+                </div>
+                <div class="seo-point">
+                    <strong>Lọc theo khu vực</strong>
+                    <span>Thu hẹp danh sách theo quận hoặc khu vực để theo dõi thuận tiện hơn.</span>
+                </div>
+                <div class="seo-point">
+                    <strong>Cập nhật tự động</strong>
+                    <span>Hình ảnh camera có thể tự làm mới theo chu kỳ bạn lựa chọn.</span>
+                </div>
+            </div>
+        </section>
+
         <p class="footer-note">Nguồn hình ảnh: Cổng thông tin giao thông TP.HCM · ePlus.DEV</p>
     </main>
 
@@ -750,7 +879,17 @@
                 code.title = camera.CamId;
 
                 meta.append(district, code);
-                body.append(title, meta);
+
+                const actions = document.createElement('div');
+                actions.className = 'card-actions';
+                const detailLink = document.createElement('a');
+                detailLink.className = 'detail-link';
+                detailLink.href = 'camera.php?id=' + encodeURIComponent(camera.CamId);
+                detailLink.setAttribute('aria-label', 'Xem chi tiết camera ' + camera.CamName);
+                detailLink.innerHTML = 'Xem chi tiết <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>';
+                actions.appendChild(detailLink);
+
+                body.append(title, meta, actions);
                 card.append(media, body);
 
                 requestAnimationFrame(() => setCardImage(card, camera));
