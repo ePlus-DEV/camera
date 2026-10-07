@@ -67,24 +67,6 @@ jobs:
                     fwrite(STDERR, "Missing CamName at index {$index}.\n");
                     exit(1);
                 }
-
-                $legacy = $camera["Address"]["legacy"] ?? null;
-                if (!is_array($legacy)) {
-                    fwrite(STDERR, "Missing Address.legacy at index {$index}.\n");
-                    exit(1);
-                }
-
-                $province = $legacy["province"]["name"] ?? "";
-                if ($province === "") {
-                    fwrite(STDERR, "Missing legacy province at index {$index}.\n");
-                    exit(1);
-                }
-
-                $location = $camera["Location"] ?? null;
-                if (!is_array($location) || !array_key_exists("lat", $location) || !array_key_exists("lng", $location)) {
-                    fwrite(STDERR, "Missing Location structure at index {$index}.\n");
-                    exit(1);
-                }
             }
             echo "Validated " . count($data) . " unique cameras.\n";
           '

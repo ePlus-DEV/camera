@@ -9,22 +9,9 @@ function h(string $value): string
     return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
 
-function cameraLegacyAddress(array $camera): array
-{
-    $legacy = $camera['Address']['legacy'] ?? [];
-    return is_array($legacy) ? $legacy : [];
-}
-
 function cameraDistrict(array $camera): string
 {
-    $legacy = cameraLegacyAddress($camera);
-    return trim((string) ($legacy['district']['name'] ?? 'TP.HCM'));
-}
-
-function cameraFullAddress(array $camera): string
-{
-    $legacy = cameraLegacyAddress($camera);
-    return trim((string) ($legacy['full'] ?? ''));
+    return trim((string) ($camera['Disctrict'] ?? $camera['District'] ?? 'TP.HCM'));
 }
 
 $cameraId = isset($_GET['id']) ? trim((string) $_GET['id']) : '';
@@ -68,10 +55,8 @@ if (!$camera) {
 } else {
     $cameraName = trim((string) $camera['CamName']);
     $district = cameraDistrict($camera);
-    $fullAddress = cameraFullAddress($camera);
     $pageTitle = 'Camera ' . $cameraName . ' – ' . $district . ' | TP.HCM';
-    $locationDescription = $fullAddress !== '' ? $fullAddress : $district . ', TP.HCM';
-    $pageDescription = 'Xem camera giao thông ' . $cameraName . ' tại ' . $locationDescription . '. Hình ảnh camera được cập nhật tự động để tiện theo dõi tình hình giao thông.';
+    $pageDescription = 'Xem camera giao thông ' . $cameraName . ' tại ' . $district . ', TP.HCM. Hình ảnh camera được cập nhật tự động để tiện theo dõi tình hình giao thông.';
     $canonical = BASE_URL . '/camera.php?id=' . rawurlencode($cameraId);
     $imageUrl = BASE_URL . '/proxy.php?id=' . rawurlencode($cameraId);
 
@@ -101,9 +86,8 @@ $schema = $camera ? [
         'name' => $cameraName,
         'address' => [
             '@type' => 'PostalAddress',
-            'streetAddress' => cameraFullAddress($camera) ?: $cameraName,
-            'addressLocality' => $district,
-            'addressRegion' => 'Hồ Chí Minh',
+            'addressLocality' => 'Hồ Chí Minh',
+            'addressRegion' => $district,
             'addressCountry' => 'VN',
         ],
     ],
