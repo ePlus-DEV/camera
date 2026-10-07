@@ -184,6 +184,13 @@ foreach ($data as $index => &$camera) {
         $newResult = isset($oldResult['data_new']) && is_array($oldResult['data_new'])
             ? $oldResult['data_new']
             : null;
+        $newPlace = null;
+        if ($newResult && !empty($newResult['ref_id'])) {
+            $newPlace = requestJson(VIETMAP_PLACE_URL, [
+                'apikey' => $apiKey,
+                'refid' => $newResult['ref_id'],
+            ]);
+        }
 
         $camera['Location'] = [
             'lat' => isset($place['lat']) ? (float) $place['lat'] : null,
@@ -191,7 +198,7 @@ foreach ($data as $index => &$camera) {
         ];
         $camera['Address'] = [
             'legacy' => normalizeAddress($oldResult, $place, true),
-            'current' => $newResult ? normalizeAddress($newResult, null, false) : null,
+            'current' => $newResult ? normalizeAddress($newResult, $newPlace, false) : null,
             'source' => 'vietmap-v4',
             'updatedAt' => gmdate('c'),
         ];
