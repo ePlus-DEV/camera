@@ -6,7 +6,7 @@
 
 - Hiển thị camera theo dạng dashboard responsive cho desktop và mobile.
 - Tìm kiếm theo tên đường, giao lộ hoặc khu vực.
-- Lọc theo quận/khu vực.
+- Lọc theo quận/huyện cũ từ dữ liệu địa chỉ có cấu trúc.
 - Tùy chọn 6–24 camera mỗi trang.
 - Tự làm mới theo chu kỳ 5/10/15/30 giây hoặc tắt hoàn toàn.
 - Làm mới từng camera hoặc toàn bộ camera đang hiển thị.
@@ -34,7 +34,8 @@ Mở <http://localhost:8000>.
 ## Cấu trúc chính
 
 - `index.html`: giao diện và logic hiển thị camera.
-- `data-camera.json`: danh sách camera.
+- `data-camera.json`: danh sách camera, tọa độ và địa chỉ cũ/mới có cấu trúc.
+- `scripts/enrich-vietmap.php`: enrich địa chỉ bằng VietMap v4 (`display_type=6`), lưu legacy + current và tọa độ.
 - `proxy.php`: proxy ảnh camera từ nguồn giao thông TP.HCM.
 - `composer.json`: dependency PHP.
 
@@ -74,3 +75,16 @@ The project exposes crawlable resources in addition to the JavaScript camera dir
 - `manifest.webmanifest` and `favicon.svg` — app/site identity metadata.
 
 The homepage and detail pages include canonical URLs, social metadata and Schema.org JSON-LD.
+
+
+## Enrich địa chỉ bằng VietMap
+
+Thiết lập biến môi trường `VIETMAP_API_KEY`, sau đó chạy:
+
+```bash
+VIETMAP_API_KEY=... php scripts/enrich-vietmap.php
+```
+
+Script dùng tên camera/giao lộ và quận cũ hiện có để tìm trên VietMap Geocode v4 với `display_type=6`.
+Kết quả cũ được lưu vào `Address.legacy`, kết quả sau sáp nhập vào `Address.current`, còn tọa độ từ Place v4 được lưu ở `Location`.
+UI chỉ filter theo `Address.legacy.district`; không gọi VietMap khi người dùng mở trang.
