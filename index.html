@@ -591,8 +591,8 @@
                 </div>
             </div>
             <div class="field">
-                <label for="districtFilter">Khu vực</label>
-                <select id="districtFilter"><option value="">Tất cả khu vực</option></select>
+                <label for="districtFilter">Quận / Huyện cũ</label>
+                <select id="districtFilter"><option value="">Tất cả quận / huyện</option></select>
             </div>
             <div class="field">
                 <label for="itemsPerPage">Camera / trang</label>
@@ -654,7 +654,7 @@
                 </div>
                 <div class="seo-point">
                     <strong>Lọc theo khu vực</strong>
-                    <span>Thu hẹp danh sách theo quận hoặc khu vực để theo dõi thuận tiện hơn.</span>
+                    <span>Thu hẹp danh sách theo quận/huyện cũ, lấy từ dữ liệu địa chỉ có cấu trúc.</span>
                 </div>
                 <div class="seo-point">
                     <strong>Cập nhật tự động</strong>
@@ -726,8 +726,31 @@
                     .trim();
             }
 
+            function getLegacyAddress(camera) {
+                return camera.Address?.legacy || null;
+            }
+
             function getDistrict(camera) {
-                return camera.Disctrict || camera.District || 'Chưa xác định';
+                return getLegacyAddress(camera)?.district?.name || 'Chưa xác định';
+            }
+
+            function getAddressSearchText(camera) {
+                const legacy = camera.Address?.legacy;
+                const current = camera.Address?.current;
+                return [
+                    camera.CamName,
+                    legacy?.full,
+                    legacy?.name,
+                    legacy?.street,
+                    legacy?.ward?.name,
+                    legacy?.district?.name,
+                    legacy?.province?.name,
+                    current?.full,
+                    current?.name,
+                    current?.street,
+                    current?.ward?.name,
+                    current?.province?.name
+                ].filter(Boolean).join(' ');
             }
 
             function setTheme(theme) {
@@ -762,7 +785,7 @@
                 state.filtered = state.cameras.filter(camera => {
                     const district = getDistrict(camera);
                     const matchesDistrict = !state.district || district === state.district;
-                    const haystack = normalize(camera.CamName + ' ' + district);
+                    const haystack = normalize(getAddressSearchText(camera));
                     return matchesDistrict && (!query || haystack.includes(query));
                 });
 
