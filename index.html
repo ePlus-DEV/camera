@@ -781,7 +781,7 @@
             }
 
             function cameraImageUrl(id) {
-                return 'proxy.php?id=' + encodeURIComponent(id) + '&t=' + Date.now();
+                return 'https://cdn.vietmap.live/cctv/' + encodeURIComponent(id) + '/snapshot?t=' + Date.now();
             }
 
             function setCardImage(card, camera) {
@@ -805,12 +805,18 @@
                 };
 
                 image.onerror = () => {
+                    if (!image.dataset.fallbackTried) {
+                        image.dataset.fallbackTried = 'true';
+                        image.src = 'proxy.php?id=' + encodeURIComponent(camera.CamId) + '&t=' + Date.now();
+                        return;
+                    }
                     skeleton.hidden = true;
                     media.classList.add('is-error');
                     badge.classList.add('error');
                     badgeText.textContent = 'Không tải được';
                 };
 
+                image.dataset.fallbackTried = '';
                 image.src = cameraImageUrl(camera.CamId);
             }
 
