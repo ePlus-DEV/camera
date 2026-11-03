@@ -290,7 +290,7 @@ $schema = $camera ? [
 <?php else: ?>
     <article class="detail-card">
         <div id="media" class="media">
-            <img id="cameraImage" src="proxy.php?id=<?= h($cameraId) ?>&amp;t=<?= time() ?>" alt="<?= h('Camera giao thông ' . $cameraName . ', ' . $district) ?>" width="1280" height="720">
+            <img id="cameraImage" src="<?= h($imageUrl) ?>?t=<?= time() ?>" alt="<?= h('Camera giao thông ' . $cameraName . ', ' . $district) ?>" width="1280" height="720">
             <div id="status" class="status"><span class="dot"></span><span id="statusText">Đang tải</span></div>
         </div>
         <div class="content">
@@ -332,6 +332,7 @@ $schema = $camera ? [
             const cameraId = <?= json_encode($cameraId) ?>;
             const refreshSeconds = 10;
             let remaining = refreshSeconds;
+            let fallbackTried = false;
 
             function setReady() {
                 status.classList.remove('error');
@@ -340,6 +341,11 @@ $schema = $camera ? [
             }
 
             function setError() {
+                if (!fallbackTried && cameraId) {
+                    fallbackTried = true;
+                    image.src = 'proxy.php?id=' + encodeURIComponent(cameraId) + '&t=' + Date.now();
+                    return;
+                }
                 status.classList.remove('ready');
                 status.classList.add('error');
                 statusText.textContent = 'Không tải được';
@@ -349,7 +355,8 @@ $schema = $camera ? [
                 if (document.hidden) return;
                 status.classList.remove('ready', 'error');
                 statusText.textContent = 'Đang tải';
-                image.src = 'proxy.php?id=' + encodeURIComponent(cameraId) + '&t=' + Date.now();
+                fallbackTried = false;
+                image.src = 'https://cdn.vietmap.live/cctv/' + encodeURIComponent(cameraId) + '/snapshot?t=' + Date.now();
                 remaining = refreshSeconds;
             }
 
