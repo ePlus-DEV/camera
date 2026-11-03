@@ -58,7 +58,7 @@ if (!$camera) {
     $pageTitle = 'Camera ' . $cameraName . ' – ' . $district . ' | TP.HCM';
     $pageDescription = 'Xem camera giao thông ' . $cameraName . ' tại ' . $district . ', TP.HCM. Hình ảnh camera được cập nhật tự động để tiện theo dõi tình hình giao thông.';
     $canonical = BASE_URL . '/camera.php?id=' . rawurlencode($cameraId);
-    $imageUrl = BASE_URL . '/proxy.php?id=' . rawurlencode($cameraId);
+    $imageUrl = 'https://cdn.vietmap.live/cctv/' . rawurlencode($cameraId) . '/snapshot';
 
     $related = array_values(array_filter($data, static function (array $item) use ($cameraId, $district): bool {
         return ($item['CamId'] ?? '') !== $cameraId
