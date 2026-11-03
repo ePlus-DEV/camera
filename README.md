@@ -35,7 +35,7 @@ Mở <http://localhost:8000>.
 
 - `index.html`: giao diện và logic hiển thị camera.
 - `data-camera.json`: danh sách camera.
-- `proxy.php`: proxy ảnh camera từ nguồn giao thông TP.HCM.
+- `proxy.php`: nguồn ảnh dự phòng từ Cổng thông tin giao thông TP.HCM khi CDN Vietmap không tải được.
 - `composer.json`: dependency PHP.
 
 ## Bảo mật
@@ -74,3 +74,7 @@ The project exposes crawlable resources in addition to the JavaScript camera dir
 - `manifest.webmanifest` and `favicon.svg` — app/site identity metadata.
 
 The homepage and detail pages include canonical URLs, social metadata and Schema.org JSON-LD.
+
+## Nguồn ảnh Vietmap CDN (thử nghiệm)
+
+Trang danh sách ưu tiên `https://cdn.vietmap.live/cctv/{CamId}/snapshot` với cache-busting query để lấy ảnh mới. Nếu ảnh CDN lỗi, trình duyệt tự thử lại **một lần** qua `proxy.php?id={CamId}`; chỉ báo lỗi khi cả hai nguồn đều thất bại. Trang chi tiết sử dụng URL CDN làm ảnh đại diện. CDN là nguồn bên thứ ba, khả năng truy cập và chính sách sử dụng cần được xác minh trước khi triển khai rộng.
